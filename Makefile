@@ -8,7 +8,19 @@ PDK_ROOT ?= $(MAKEFILE_DIR)/gf180mcu
 PDK ?= gf180mcuD
 PDK_TAG ?= 1.4.4
 
-SLOT ?= 1x1
+AVAILABLE_SLOTS = 1x1 0p5x1 1x0p5 0p5x0p5
+DEFAULT_SLOT = 1x1
+
+# Slot can be any of AVAILABLE_SLOTS, tested only for 1x1!
+SLOT ?= $(DEFAULT_SLOT)
+
+ifeq ($(SLOT),default)        
+    SLOT = $(DEFAULT_SLOT)
+endif
+
+ifeq ($(filter $(SLOT),$(AVAILABLE_SLOTS)),)
+    $(error $(SLOT) does not exist in AVAILABLE_SLOTS: $(AVAILABLE_SLOTS))
+endif
 
 .DEFAULT_GOAL := help
 
