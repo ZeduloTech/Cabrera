@@ -92,6 +92,7 @@ set_max_fanout $::env(MAX_FANOUT_CONSTRAINT) [current_design]
 
 ## FALSE PATHS 
 set_false_path -from [get_ports {rstb}]
+set_false_path -from [get_ports {start_mode}]
 
 set_false_path -through [get_ports {user_gpio*}]
 set_false_path -through [get_ports user_clock2]
@@ -117,7 +118,7 @@ set max_in_tran 1.0
 set user_inputs [get_ports [list flash_io*_di user_wb_dat_i* user_wb_ack_i user_gpio_out* user_gpio_oeb* user_irq_core]]
 set pad_inputs [get_ports [list caravel_io_in* rstb clock_core gpio_in_core]]
 set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__buf_16 -pin Z -min -from_pin I -input_transition_rise $min_in_tran -input_transition_fall $min_in_tran $user_inputs
-set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__buf_1 -pin Z -max -from_pin I -input_transition_rise $max_in_tran -input_transition_fall $min_in_tran $user_inputs
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__buf_1 -pin Z -max -from_pin I -input_transition_rise $max_in_tran -input_transition_fall $max_in_tran $user_inputs
 set_driving_cell -lib_cell gf180mcu_fd_io__bi_24t -pin Y -from_pin PAD -input_transition_rise $max_in_tran -input_transition_fall $max_in_tran $pad_inputs
 
 # Derates

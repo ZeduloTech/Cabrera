@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: © 2025 egorxe
 // SPDX-License-Identifier: Apache-2.0
 
+`timescale 1 ns / 1 ps
 `default_nettype none
 `include "pinout.vh"
 `include "defines.v" // from Caravel
@@ -35,6 +36,7 @@ module chip_core #(
 );
 
     // Wishbone from Caravel
+    wire user_wb_clk_prebuf;
     wire user_wb_clk;
     wire user_wb_rst;
     wire user_wb_cyc;
@@ -42,9 +44,13 @@ module chip_core #(
     wire user_wb_we;
     wire [3:0]  user_wb_sel;
     wire [31:0] user_wb_adr;
-    wire [31:0] user_wb_dat_in;
-    wire [31:0] user_wb_dat_out;
+    wire [31:0] user_wb_dat_wr;
+    wire [31:0] user_wb_dat_rd;
     wire user_wb_ack;
+
+    // Additional Caravel signals
+    wire npor;
+    wire caravel_start_mode;
     
     // Disable pull-up and pull-down for input
     assign input_pu = '0;
@@ -61,6 +67,8 @@ module chip_core #(
     assign bidir_pd[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
     assign bidir_sl[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
     assign bidir_cs[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
+    assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
+    assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
     
     wb_counter counter (
         .wb_clk_i(user_wb_clk),
@@ -68,10 +76,16 @@ module chip_core #(
         .wb_stb_i(user_wb_stb),
         .wb_cyc_i(user_wb_cyc),
         .wb_adr_i(user_wb_adr),
-        .wb_dat_i(user_wb_dat_in),
+        .wb_dat_i(user_wb_dat_wr),
         .wb_we_i (user_wb_we),
-        .wb_dat_o(user_wb_dat_out),
+        .wb_dat_o(user_wb_dat_rd),
         .wb_ack_o(user_wb_ack)
+    );
+
+    // Buffer wb clock
+    (* keep, dont_touch *) gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 wb_clk_buf (
+        .I(user_wb_clk_prebuf),
+        .Z(user_wb_clk)
     );
     
     caravel_core caravel (
@@ -110,23 +124,27 @@ module chip_core #(
         .caravel_io_slew_sel(bidir_sl[`CARAVEL_IO_PADS-1:0]),
         
         // User wishbone stub
-        .user_wb_clk_o(user_wb_clk),
+        .user_wb_clk_o(user_wb_clk_prebuf),
         .user_wb_rst_o(user_wb_rst),
         .user_wb_cyc_o(user_wb_cyc),
         .user_wb_stb_o(user_wb_stb),
         .user_wb_we_o (user_wb_we),
         .user_wb_sel_o(user_wb_sel),
         .user_wb_adr_o(user_wb_adr),
-        .user_wb_dat_o(user_wb_dat_in),
-        .user_wb_dat_i(user_wb_dat_out),
+        .user_wb_dat_o(user_wb_dat_wr),
+        .user_wb_dat_i(user_wb_dat_rd),
         .user_wb_ack_i(user_wb_ack),
         
         .user_irq_core(1'b0),
         
         // User IO stub
         .user_gpio_out({`CARAVEL_IO_PADS{1'b0}}),
-        .user_gpio_oeb({`CARAVEL_IO_PADS{1'b1}})
+        .user_gpio_oeb({`CARAVEL_IO_PADS{1'b1}}),
+        
+        .npor(npor),
+        .start_mode(caravel_start_mode)
     );
+    assign caravel_start_mode = 1'b0;
 
 endmodule
 

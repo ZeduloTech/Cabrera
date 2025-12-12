@@ -49,13 +49,8 @@ module mprj_bitbang_tb;
         clock = 0;
     end
     
-    `ifdef ENABLE_SDF
-    initial begin
-        $sdf_annotate({`FINAL_PREFIX, "/sdf/nom_tt_025C_5v00/chip_top__nom_tt_025C_5v00.sdf"}, uut.chip );
-        $sdf_annotate({`CARAVEL_FINAL_PREFIX, "/sdf/nom_tt_025C_5v00/caravel_core__nom_tt_025C_5v00.sdf"}, uut.chip.\i_chip_core.caravel );
-        $sdf_annotate({`OSC_FINAL_PREFIX, "/sdf/nom_tt_025C_5v00/ring_osc2x13__nom_tt_025C_5v00.sdf"}, uut.chip.\i_chip_core.caravel .\pll.ringosc  );
-    end
-    `endif 
+    `define CHIP_TOP_HIER uut.chip
+    `include "sdf.vh"
 
     initial begin        // Power-up sequence
         power1 <= 1'b0;

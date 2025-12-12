@@ -6,7 +6,7 @@ meta:
   substituting_steps:
     
     # Save time
-    #Magic.DRC: null                 # ! fails because of SRAM !
+    #Magic.DRC: null                 
     #KLayout.DRC: null
     #OpenROAD.IRDropReport: null
     #Magic.SpiceExtraction: null    
@@ -162,20 +162,25 @@ PL_RESIZER_SETUP_SLACK_MARGIN: 0.2
 
 RSZ_DONT_TOUCH_RX: .*clk_buf
 
-DESIGN_REPAIR_MAX_WIRE_LENGTH: 700
+DESIGN_REPAIR_MAX_WIRE_LENGTH: 1500
 DESIGN_REPAIR_MAX_SLEW_PCT: 25
 
 ############################### Routing ################################
 
 # following is required to fix antennas
-RUN_HEURISTIC_DIODE_INSERTION: True  
-HEURISTIC_ANTENNA_THRESHOLD: 250
 DIODE_ON_PORTS: in
+GRT_ANTENNA_MARGIN: 20
 GRT_ANTENNA_ITERS: 10
+DRT_ANTENNA_REPAIR_ITERS: 10
+
+# To disable ports buffering & wire repair with dly cells as they degrade timing
+PNR_EXCLUDED_CELL_FILE: dir::pnr_exclude.cells
 
 ############################### DRC/LVS ################################
 
-ERROR_ON_MAGIC_DRC: False
+KLAYOUT_ANTENNA_OPTIONS: 
+  run_mode: "deep"
+  skip_via_antenna: "true"
 
 # Prevent false positive DRC errors in I/O cells
 MAGIC_GDS_FLATGLOB:
@@ -208,8 +213,9 @@ MAGIC_GDS_FLATGLOB:
 - "xdec_*"
 - "ypredec*"
 - "xpredec*"
-- "xdec8_*"
 - "prexdec_*"
+- "xdec8_*"
+- "xdec16_*"
 - "xdec32_*"
 - "sa_*"
 
