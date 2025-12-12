@@ -13,7 +13,6 @@ import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import Timer, RisingEdge
 from cocotbext.uart import UartSink
-from cocotbext.spi import SpiBus, SpiConfig, SpiMaster
 from cocotb_tools.runner import get_runner
 
 sim = os.getenv("SIM", "icarus")
