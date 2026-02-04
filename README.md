@@ -1,6 +1,6 @@
 # gf180mcu Caravel Template
 
-Project template for wafer.space MPW runs using the gf180mcu PDK with integrated Caravel core. Based on the [gf180mcu-project-template](https://github.com/wafer-space/gf180mcu-project-template) with Caravel core which is essentially a simplified fork of the [GF180MCU Caravel by eFabless](https://github.com/efabless/caravel-gf180mcu) used during OpenMPW GF180MCU runs. Intended to be used as a base for wafer.space gf180mcu designs when proven Wishbone-capable CPU core is needed.
+Project template for wafer.space MPW runs using the gf180mcu PDK with integrated Caravel core. Based on the [gf180mcu-project-template](https://github.com/wafer-space/gf180mcu-project-template) with Caravel core which is essentially a simplified fork of the [GF180MCU Caravel by eFabless](https://github.com/efabless/caravel-gf180mcu) used during OpenMPW GF180MCU runs. This template is intended to be used as a base for wafer.space gf180mcu designs when proven Wishbone-capable CPU core is needed. Please see [TZ-01 testchip from the wafer.space Run-1](https://github.com/ZeduloTech/gf180mcu-testchip2025) as an example of such usage.
 
 ## Implement the Design
 
@@ -35,7 +35,7 @@ The only major addition to the original Caravel is the `start_mode` input pin. D
 
 ## Integrating user design with Caravel
 
-User design located in `chip_core.sv` could be connected to Caravel's Wishbone bus. It will be mapped to the address 0x30000000 in the CPU address space. Most of the pads connected to the Caravel could be connected to the user design signals using user_gpio_\* pins. User IO on these pins is multiplexed with Caravel IO and multiplexing is controlled from Caravel software in a manner similar to the original Caravel. For examples of user designs please see Wishbone counter connected in this repository or more complex case in [TZ-01 testchip from the wafer.space Run-1](https://github.com/ZeduloTech/gf180mcu-testchip2025).
+User design located in `chip_core.sv` could be connected to Caravel's Wishbone bus. It will be mapped to the address 0x30000000 in the CPU address space. Most of the pads connected to the Caravel could be connected to the user design signals using user_gpio_\* pins. User IO on these pins is multiplexed with Caravel IO and multiplexing is controlled from Caravel software in a manner similar to the original Caravel. For examples of user designs please see Wishbone counter connected in this repository or more complex case in the [TZ-01 testchip](https://github.com/ZeduloTech/gf180mcu-testchip2025/blob/main/src/chip_core.sv).
 
 ## Verification and Simulation
 
@@ -49,5 +49,5 @@ To run all the tests on post-implementation gate-level netlist (will be present 
 make sim-gl
 ```
 
-Cocotb testbench is located in `cocotb/chip_top_tb.py` and could be run either directly with python or via pytest. Makefile targets launch all the tests via pytest with the number of parallel runs equivalent to a number of available CPU threads. The list of available tests could be found in `cocotb/test_list.json`. Currently each test consists of a Verilog testbench (`caravel/sim/caravel_tb`) and a Caravel program (`caravel/sim/caravel_sw`), with cocotb testbench acting mostly as a test framework. More complex test structure could be found in the [TZ-01 testchip repository](https://github.com/ZeduloTech/gf180mcu-testchip2025/tree/main/cocotb).
+Cocotb testbench is located in `cocotb/chip_top_tb.py` and could be run either directly with python or via pytest. Makefile targets launch all the tests via pytest with the number of parallel runs equivalent to a number of available CPU threads. The list of available tests could be found in `cocotb/test_list.json`. Currently each test consists of a Verilog testbench (`caravel/sim/caravel_tb`) and a Caravel program (`caravel/sim/caravel_sw`), with cocotb testbench acting mostly as a test framework. Extension of this test structure to more complex test cases could be found in the [TZ-01 testchip repository](https://github.com/ZeduloTech/gf180mcu-testchip2025/tree/main/cocotb).
 
