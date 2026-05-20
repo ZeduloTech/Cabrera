@@ -4,23 +4,23 @@ meta:
   substituting_steps:
   
     # Disable KLayout antenna check
-    #KLayout.Antenna: null
-    #Checker.KLayoutAntenna: null
+    KLayout.Antenna: null
+    Checker.KLayoutAntenna: null
 
     # Disable KLayout density check
-    #KLayout.Density: null
-    #Checker.KLayoutDensity: null
+    KLayout.Density: null
+    Checker.KLayoutDensity: null
 
     # Save time during development
     # Enable for sign-off
-    #KLayout.DRC: null
-    #Checker.KLayoutDRC: null
-    #OpenROAD.IRDropReport: null
-    #Magic.DRC: null
-    #Checker.MagicDRC: null
-    #KLayout.XOR: null
-    #Netgen.LVS: null
-    #Checker.LVS: null
+    KLayout.DRC: null
+    Checker.KLayoutDRC: null
+    OpenROAD.IRDropReport: null
+    Magic.DRC: null
+    Checker.MagicDRC: null
+    KLayout.XOR: null
+    Netgen.LVS: null
+    Checker.LVS: null
     
     Checker.YosysSynthChecks: null  # Fails due to multisources in PLL
 
@@ -59,7 +59,7 @@ IGNORE_DISCONNECTED_MODULES:
 # Clock
 CLOCK_NET: i_chip_core.wb_clk_buf/Z
 
-CLOCK_PERIOD: 40 # 25 MHz
+CLOCK_PERIOD: 20 #
 
 # Fix hold violations
 PL_RESIZER_HOLD_SLACK_MARGIN: 0.35
