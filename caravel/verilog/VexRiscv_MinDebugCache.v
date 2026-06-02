@@ -48,6 +48,7 @@ module VexRiscv (
     inout VDD,	    /* 5.0V domain */
     inout VSS,
 `endif
+  output              halted,
   input      [31:0]   externalResetVector,
   input               timerInterrupt,
   input               softwareInterrupt,
@@ -85,6 +86,7 @@ module VexRiscv (
   input               reset,
   input               debugReset
 );
+  assign halted = 0;
   wire                IBusCachedPlugin_cache_io_flush;
   wire                IBusCachedPlugin_cache_io_cpu_prefetch_isValid;
   wire                IBusCachedPlugin_cache_io_cpu_fetch_isValid;

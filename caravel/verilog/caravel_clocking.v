@@ -50,13 +50,7 @@ module caravel_clocking(
         .I(core_clk_prebuf),
         .Z(core_clk)
     );
-/*
-    wire core_clk_prebuf;
-    (* keep, dont_touch *) gf180mcu_as_sc_mcu7t3v3__clkbuf_8 caravel_clk_buf (
-        .I(core_clk_prebuf),
-        .Z(core_clk)
-    );
-*/
+
     assign pll_clk_sel = ~ext_clk_sel;
 
     // Reset assignment.  "porb" comes from POR, while "resetb" comes
