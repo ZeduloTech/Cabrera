@@ -34,7 +34,7 @@ module chip_core #(
 
     inout  wire [NUM_ANALOG_PADS-1:0] analog  // Analog
 );
-
+    //wire core_clock;
     // Wishbone from Caravel
     wire user_wb_clk_prebuf;
     wire user_wb_clk;
@@ -54,14 +54,14 @@ module chip_core #(
     
     // Disable pull-up and pull-down for input
     assign input_pu = '0;
-    assign input_pd = '0;
+    assign input_pd = '1; //0
     
     // set pad config for flash & GPIO
     assign bidir_pu[`PAD_FLASH_IO1:`PAD_GPIO] = 5'b0010;
     assign bidir_pd[`PAD_FLASH_IO1:`PAD_GPIO] = 5'b0000;
     assign bidir_sl[`PAD_FLASH_IO1:`PAD_GPIO] = 5'b0000;
     assign bidir_cs[`PAD_FLASH_IO1:`PAD_GPIO] = 5'b0000;
-    
+/*    
     // set all other bidirs
     assign bidir_pu[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
     assign bidir_pd[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
@@ -69,7 +69,24 @@ module chip_core #(
     assign bidir_cs[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
     assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
     assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
-    
+ */   
+
+    // ztimer SPI pad config (pads 18..21: SCK, CSB, SDI, SDO)
+    assign bidir_pu[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0010; // CSB pull-up
+    assign bidir_pd[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0000;
+    assign bidir_sl[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0000;
+    assign bidir_cs[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0000;
+    assign bidir_ie[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0111;
+    assign bidir_oe[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b1000; // drive SDO only
+
+    // set all other bidirs above the ztimer block to default zero
+    assign bidir_pu[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+    assign bidir_pd[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+    assign bidir_sl[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+    assign bidir_cs[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+    assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+    assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+
     wb_counter counter (
         .wb_clk_i(user_wb_clk),
         .wb_rst_i(user_wb_rst),
@@ -87,7 +104,26 @@ module chip_core #(
         .I(user_wb_clk_prebuf),
         .Z(user_wb_clk)
     );
-    
+
+    //
+    // ztimer
+    //
+    rosc_spi_bridge  u_ztimer (
+        .clk_i         (clk),
+        .rst_ni        (rst_n),
+
+        // SPI slave
+        .cio_sck_i     (bidir_in [`PAD_ZTIMER_SCK]),
+        .cio_csb_i     (bidir_in [`PAD_ZTIMER_CSB]),
+        .cio_sd_i      (bidir_in [`PAD_ZTIMER_SDI]),
+        .cio_sd_o      (bidir_out[`PAD_ZTIMER_SDO]),
+
+        // controls
+        .rosc_enable_i (input_in [`PADI_ZTIMER_ROSC_EN]),
+        .start_i       (input_in [`PADI_ZTIMER_START]),
+        .stop_i        (input_in [`PADI_ZTIMER_STOP])
+    );
+   
     caravel_core caravel (
         `ifdef USE_POWER_PINS
         .VDD(VDD),		

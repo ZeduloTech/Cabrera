@@ -15,7 +15,7 @@ meta:
     # Enable for sign-off
     KLayout.DRC: null
     Checker.KLayoutDRC: null
-    OpenROAD.IRDropReport: null
+    #OpenROAD.IRDropReport: null
     Magic.DRC: null
     Checker.MagicDRC: null
     KLayout.XOR: null
@@ -187,7 +187,23 @@ MACROS:
       "*ff*" : [ dir::../caravel/final/spef/min/caravel_core.min.spef.gz ]
     instances:
       i_chip_core.caravel:
-        location: [500, 500]
+        location: [490, 475] #500
+        orientation: N
+
+  rosc_spi_bridge:
+    gds:
+      - dir::../ztimer/final/gds/rosc_spi_bridge.gds
+    lef:
+      - dir::../ztimer/final/lef/rosc_spi_bridge.lef
+    vh:
+      - dir::../ztimer/final/vh/rosc_spi_bridge.vh
+    lib:
+      "*tt*" : [ dir::../ztimer/final/lib/nom_tt_025C_5v00/rosc_spi_bridge__nom_tt_025C_5v00.lib ]
+      "*ff*" : [ dir::../ztimer/final/lib/min_ff_n40C_5v50/rosc_spi_bridge__min_ff_n40C_5v50.lib ]
+      "*ss*" : [ dir::../ztimer/final/lib/max_ss_125C_4v50/rosc_spi_bridge__max_ss_125C_4v50.lib ]
+    instances:
+      i_chip_core.u_ztimer:
+        location: [490, 1515]
         orientation: N
         
 

@@ -12,6 +12,17 @@
 
 `define PAD_CARAVEL_END `PAD_FLASH_IO1
 
+// zTimer
+`define PAD_ZTIMER_SCK   18
+`define PAD_ZTIMER_CSB   19
+`define PAD_ZTIMER_SDI   20
+`define PAD_ZTIMER_SDO   21
+`define PAD_ZTIMER_END   `PAD_ZTIMER_SDO
+    // ztimer control inputs
+`define PADI_ZTIMER_ROSC_EN 4
+`define PADI_ZTIMER_START   5
+`define PADI_ZTIMER_STOP    6
+
 // I2C
 `define PAD_OT_LOW    33
 `define PAD_OT_I2CSDA 34
