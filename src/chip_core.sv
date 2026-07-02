@@ -105,6 +105,25 @@ module chip_core #(
         .Z(user_wb_clk)
     );
 
+    // 512
+    logic macro_cen, macro_gwen;
+    logic [8:0] sram_addr;
+    logic [7:0] macro_wen, sram_wdata, sram_rdata;
+
+    assign macro_cen = 1'b1;
+    assign macro_gwen = 1'b0;
+    assign macro_wen = 8'h00;
+    assign sram_addr = 9'h00;
+    assign sram_wdata = 8'h00;
+
+   (* keep, dont_touch *) gf180mcu_fd_ip_sram__sram512x8m8wm1 sram_0 (
+    `ifdef USE_POWER_PINS
+        .VDD(VDD), .VSS(VSS),
+    `endif
+        .CLK(clk), .CEN(macro_cen), .GWEN(macro_gwen),
+        .WEN(macro_wen[7:0]), .A(sram_addr), .D(sram_wdata[7:0]), .Q(sram_rdata[7:0])
+    );  // placing 1 instance to see how it fit in the repo before adding second
+
     //
     // ztimer
     //

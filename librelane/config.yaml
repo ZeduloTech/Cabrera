@@ -60,7 +60,7 @@ IGNORE_DISCONNECTED_MODULES:
 # Clock
 CLOCK_NET: i_chip_core.wb_clk_buf/Z
 
-CLOCK_PERIOD: 60 # 20 MHz
+CLOCK_PERIOD: 50 # 20 MHz
 
 # Fix hold violations
 PL_RESIZER_HOLD_SLACK_MARGIN: 0.35
@@ -72,6 +72,7 @@ PL_TARGET_DENSITY_PCT: 35
 GRT_ALLOW_CONGESTION: true
 
 # PDN
+PDN_CFG: dir::pdn_cfg.tcl
 PDN_CORE_RING: True
 # Maximum metal width without slotting: 30um
 PDN_CORE_RING_VWIDTH: 25
@@ -81,6 +82,7 @@ PDN_ENABLE_PINS: False
 PDN_CORE_VERTICAL_LAYER: Metal2
 PDN_CORE_HORIZONTAL_LAYER: Metal3
 PDN_HPITCH: 100
+PDN_VOFFSET: 3.5
 
 # To disable ports buffering & wire repair with dly cells as they degrade timing
 PNR_EXCLUDED_CELL_FILE: dir::../caravel/librelane/pnr_exclude.cells
@@ -91,6 +93,9 @@ DIODE_ON_PORTS: both
 GRT_ANTENNA_MARGIN: 20
 GRT_ANTENNA_ITERS: 10
 DRT_ANTENNA_REPAIR_ITERS: 10
+
+PDN_MACRO_CONNECTIONS:
+  - "i_chip_core.sram_0 VDD VSS VDD VSS"
 
 # Do not error on magic DRC violations
 # Note: Passing magic DRC is not required for the submission.
@@ -218,6 +223,26 @@ MACROS:
       i_chip_core.flash_ip:
         location: [513, 1900]
         orientation: N
+
+  gf180mcu_fd_ip_sram__sram512x8m8wm1:
+    gds:
+      - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/gds/gf180mcu_fd_ip_sram__sram512x8m8wm1.gds
+    lef:
+      - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/lef/gf180mcu_fd_ip_sram__sram512x8m8wm1.lef
+    vh:
+      - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/verilog/gf180mcu_fd_ip_sram__sram512x8m8wm1__blackbox.v
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../ip/sram/gf180mcu_fd_ip_sram__sram512x8m8wm1__tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../ip/sram/gf180mcu_fd_ip_sram__sram512x8m8wm1__ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../ip/sram/gf180mcu_fd_ip_sram__sram512x8m8wm1__ss_125C_4v50.lib
+    instances: # SRAM specified inpdn_cfg.tcl
+      i_chip_core.sram_0:
+        location: [3008, 1515] #tight 2210 
+        orientation: N
+
         
 # Make sure netgen doesn't create 'no_connect' nets
 # Not needed since netgen 1.5.303
