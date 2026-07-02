@@ -55,6 +55,7 @@ IGNORE_DISCONNECTED_MODULES:
 - gf180mcu_fd_io__bi_24t
 - gf180mcu_ws_ip__id
 - gf180mcu_ws_ip__logo
+- Flash_SPI
 
 # Clock
 CLOCK_NET: i_chip_core.wb_clk_buf/Z
@@ -205,8 +206,19 @@ MACROS:
       i_chip_core.u_ztimer:
         location: [490, 1515]
         orientation: N
-        
 
+  Flash_SPI:
+    gds:
+      - dir::../ip/flash_ip/gds/Flash_SPI.gds
+    lef:
+      - dir::../ip/flash_ip/lef/Flash_SPI.lef
+    vh:
+      - dir::../ip/flash_ip/vh/Flash_SPI.v
+    instances:
+      i_chip_core.flash_ip:
+        location: [513, 1900]
+        orientation: N
+        
 # Make sure netgen doesn't create 'no_connect' nets
 # Not needed since netgen 1.5.303
 LVS_FLATTEN_CELLS:

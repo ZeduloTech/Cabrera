@@ -1,0 +1,125 @@
+* Extracted by KLayout with GF180MCU LVS runset on : 30/06/2026 18:07
+
+* cell TOP1
+.SUBCKT TOP1
+* device instance $1 r0 *1 854.05,365.91 pfet_03v3
+M$1 Pad16 \$8 Pad16 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P PS=13.68U
++ PD=13.68U
+* device instance $2 r0 *1 855.89,365.91 pfet_03v3
+M$2 Pad16 \$10 Pad16 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $3 r0 *1 857.73,365.91 pfet_03v3
+M$3 Pad16 \$12 Pad16 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $4 r0 *1 859.57,365.91 pfet_03v3
+M$4 Pad16 \$14 Pad16 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $5 r0 *1 854.05,373.105 pfet_03v3
+M$5 Pad15 \$8 Pad15 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P PS=2.48U
++ PD=2.48U
+* device instance $6 r0 *1 855.89,373.105 pfet_03v3
+M$6 Pad15 \$10 Pad15 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P PS=2.48U
++ PD=2.48U
+* device instance $7 r0 *1 857.73,373.105 pfet_03v3
+M$7 Pad15 \$12 Pad15 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P PS=2.48U
++ PD=2.48U
+* device instance $8 r0 *1 859.57,373.105 pfet_03v3
+M$8 Pad15 \$14 Pad15 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P PS=2.48U
++ PD=2.48U
+* device instance $9 r0 *1 854.05,381.795 pfet_03v3
+M$9 Pad11 \$29 Pad11 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P PS=2.48U
++ PD=2.48U
+* device instance $10 r0 *1 855.89,381.795 pfet_03v3
+M$10 Pad11 \$30 Pad11 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P
++ PS=2.48U PD=2.48U
+* device instance $11 r0 *1 857.73,381.795 pfet_03v3
+M$11 Pad11 \$31 Pad11 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P
++ PS=2.48U PD=2.48U
+* device instance $12 r0 *1 859.57,381.795 pfet_03v3
+M$12 Pad11 \$32 Pad11 Pad4 pfet_03v3 L=0.28U W=0.8U AS=0.352P AD=0.352P
++ PS=2.48U PD=2.48U
+* device instance $13 r0 *1 854.05,388.99 pfet_03v3
+M$13 Pad10 \$29 Pad10 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $14 r0 *1 855.89,388.99 pfet_03v3
+M$14 Pad10 \$30 Pad10 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $15 r0 *1 857.73,388.99 pfet_03v3
+M$15 Pad10 \$31 Pad10 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $16 r0 *1 859.57,388.99 pfet_03v3
+M$16 Pad10 \$32 Pad10 Pad2 pfet_03v3 L=0.28U W=6.4U AS=2.816P AD=2.816P
++ PS=13.68U PD=13.68U
+* device instance $17 r0 *1 854.225,361.05 nfet_03v3
+M$17 \$7 Pad1|Pad13|Pad3|Pad5 Pad6 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $18 r0 *1 856.065,361.05 nfet_03v3
+M$18 \$9 Pad1|Pad13|Pad3|Pad5 Pad7 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $19 r0 *1 857.905,361.05 nfet_03v3
+M$19 \$11 Pad1|Pad13|Pad3|Pad5 Pad8 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $20 r0 *1 859.745,361.05 nfet_03v3
+M$20 \$13 Pad1|Pad13|Pad3|Pad5 Pad9 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $21 r0 *1 854.05,370.98 nfet_03v3
+M$21 \$16 \$8 \$7 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $22 r0 *1 855.89,370.98 nfet_03v3
+M$22 \$17 \$10 \$9 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $23 r0 *1 857.73,370.98 nfet_03v3
+M$23 \$18 \$12 \$11 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $24 r0 *1 859.57,370.98 nfet_03v3
+M$24 \$19 \$14 \$13 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $25 r0 *1 854.225,375.165 nfet_03v3
+M$25 Pad1|Pad13|Pad3|Pad5 Pad14 \$16 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $26 r0 *1 856.065,375.165 nfet_03v3
+M$26 Pad1|Pad13|Pad3|Pad5 Pad14 \$17 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $27 r0 *1 857.905,375.165 nfet_03v3
+M$27 Pad1|Pad13|Pad3|Pad5 Pad14 \$18 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $28 r0 *1 859.745,375.165 nfet_03v3
+M$28 Pad1|Pad13|Pad3|Pad5 Pad14 \$19 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $29 r0 *1 854.225,379.735 nfet_03v3
+M$29 \$24 Pad12 Pad1|Pad13|Pad3|Pad5 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $30 r0 *1 856.065,379.735 nfet_03v3
+M$30 \$25 Pad12 Pad1|Pad13|Pad3|Pad5 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $31 r0 *1 857.905,379.735 nfet_03v3
+M$31 \$26 Pad12 Pad1|Pad13|Pad3|Pad5 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $32 r0 *1 859.745,379.735 nfet_03v3
+M$32 \$27 Pad12 Pad1|Pad13|Pad3|Pad5 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $33 r0 *1 854.05,383.92 nfet_03v3
+M$33 \$24 \$29 \$33 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $34 r0 *1 855.89,383.92 nfet_03v3
+M$34 \$25 \$30 \$34 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $35 r0 *1 857.73,383.92 nfet_03v3
+M$35 \$26 \$31 \$35 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $36 r0 *1 859.57,383.92 nfet_03v3
+M$36 \$27 \$32 \$36 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U W=0.8U AS=0.352P
++ AD=0.352P PS=2.48U PD=2.48U
+* device instance $37 r0 *1 854.225,393.85 nfet_03v3
+M$37 Pad6 Pad1|Pad13|Pad3|Pad5 \$33 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $38 r0 *1 856.065,393.85 nfet_03v3
+M$38 Pad7 Pad1|Pad13|Pad3|Pad5 \$34 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $39 r0 *1 857.905,393.85 nfet_03v3
+M$39 Pad8 Pad1|Pad13|Pad3|Pad5 \$35 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+* device instance $40 r0 *1 859.745,393.85 nfet_03v3
+M$40 Pad9 Pad1|Pad13|Pad3|Pad5 \$36 Pad1|Pad13|Pad3|Pad5 nfet_03v3 L=0.28U
++ W=0.8U AS=0.352P AD=0.352P PS=2.48U PD=2.48U
+.ENDS TOP1

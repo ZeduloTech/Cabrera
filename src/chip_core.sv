@@ -182,6 +182,9 @@ module chip_core #(
     );
     assign caravel_start_mode = 1'b0;
 
+    // flash ip
+    (* keep *) Flash_SPI flash_ip ();
+
 endmodule
 
 `default_nettype wire
