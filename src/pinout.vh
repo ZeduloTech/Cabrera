@@ -13,15 +13,20 @@
 `define PAD_CARAVEL_END `PAD_FLASH_IO1
 
 // zTimer
-`define PAD_ZTIMER_SCK   18
-`define PAD_ZTIMER_CSB   19
+`define PAD_ZTIMER_SDO   18
+`define PAD_ZTIMER_SCK   19
 `define PAD_ZTIMER_SDI   20
-`define PAD_ZTIMER_SDO   21
-`define PAD_ZTIMER_END   `PAD_ZTIMER_SDO
-// ztimer control inputs
-`define PAD_ZTIMER_ROSC_EN 35
-`define PAD_ZTIMER_START   36
-`define PAD_ZTIMER_STOP    37
+`define PAD_ZTIMER_CSB   21
+ // ztimer control inputs
+`define PADI_ZTIMER_ROSC_EN 1
+`define PADA_ZTIMER_START   0
+`define PADA_ZTIMER_STOP    1
+ // markers
+`define PAD_ZTIMER_SPI_LO `PAD_ZTIMER_SDO
+`define PAD_ZTIMER_SPI_HI `PAD_ZTIMER_CSB
+`define PAD_ZTIMER_START `PAD_ZTIMER_SDO
+`define PAD_ZTIMER_END   `PAD_ZTIMER_CSB
+
 
 // MII
 `define PAD_MII_RST     22

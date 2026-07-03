@@ -2,7 +2,9 @@
 // wrapper for spi_core and spi_byte_sm
 // and interface to counters
 
-module spi_device (
+module spi_device #(
+    parameter FLAT_COUNTER_REGISTERS = 96
+)(
     input wire clk_i,
     input wire rst_ni,
 
@@ -13,7 +15,7 @@ module spi_device (
     output wire cio_sd_o,
 
     // interface to counter signals
-    input wire [31:0] counters_i,
+    input wire [FLAT_COUNTER_REGISTERS - 1: 0] counters_i,
     output wire [3:0] cnt_idx,
     output wire     cnt_rst_en
 );
@@ -24,7 +26,7 @@ module spi_device (
     wire        rx_valid;
     wire        tx_load;
     wire        cnt_rd_en;
-    //wire [31:0] current_cnt_val;
+    wire [31:0] current_cnt_val;
     wire        cio_csb_syned;
 
     ///////////////////
@@ -60,11 +62,10 @@ module spi_device (
         .cnt_idx        (cnt_idx),
         .cnt_rd_en      (cnt_rd_en),
         .cnt_rst_en     (cnt_rst_en),
-        .cnt_val        (counters_i)
+        .cnt_val        (current_cnt_val)
     );
 
     // counter selection 
-    //assign current_cnt_val = counters_i[cnt_idx * 32 +: 32];
-    //assign current_cnt_val = counters_i;
+    assign current_cnt_val = counters_i[cnt_idx * 32 +: 32];
 
 endmodule

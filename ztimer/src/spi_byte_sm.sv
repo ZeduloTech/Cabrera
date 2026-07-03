@@ -7,7 +7,7 @@ module spi_byte_sm (
 
     input wire cio_sck_i,
     input wire cio_csb_i,
-    input wire cio_sd_i, //mosi
+    input wire cio_sd_i,  //mosi
     output wire cio_sd_o, //miso
 
     input wire [7:0] tx_data, // byte to send

@@ -1,6 +1,5 @@
 // spi_core.sv
 // Handles 8-bit command + 32 bit data
-//
 
 module spi_core (
     input wire clk_i,

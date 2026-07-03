@@ -9,7 +9,6 @@ module inverter (
     output wire out
 );
 
-/*
 `ifdef IVERILOG_SIMULATION
 	initial begin
 		force out = 0;
@@ -17,7 +16,7 @@ module inverter (
 		release out;
 	end
 `endif
-*/
+
 
   assign out = ~in;
 

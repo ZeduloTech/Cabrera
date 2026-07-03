@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 module not_rosc #(
-    parameter integer N = 5     // number of not gates, must be odd & >= 3
+    parameter integer N = 3     // number of not gates, must be odd & >= 3
 )(
     input wire rosc_enable,			// Enable ring oscillator
-	output wire rosc_out			//ring oscillator out 
+	output wire rosc_out		//ring oscillator out 
 );
 
   wire [N-1:0] inv_in;

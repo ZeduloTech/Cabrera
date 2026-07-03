@@ -13,6 +13,7 @@ DESIGN_NAME: rosc_spi_bridge
 VERILOG_FILES:
 - dir::../src/inverter.v
 - dir::../src/not_rosc.v
+- dir::../src/clk_timer.v
 - dir::../src/rosc_timer.v
 - dir::../src/spi_byte_sm.sv
 - dir::../src/spi_core.sv

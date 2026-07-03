@@ -82,14 +82,16 @@ module chip_core #(
     assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_CARAVEL_END+1] = '0;
  */   
 
-    // ztimer SPI pad config (pads 18..21: SCK, CSB, SDI, SDO)
-    assign bidir_pu[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0010; // CSB pull-up
-    assign bidir_pd[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0000;
-    assign bidir_sl[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0000;
-    assign bidir_cs[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0000;
-    assign bidir_ie[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b0111;
-    assign bidir_oe[`PAD_ZTIMER_SDO:`PAD_ZTIMER_SCK] = 4'b1000; // drive SDO only
+    // ztimer SPI pad config [CSB, SDI, SCK, SDO]
+    assign bidir_pu[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b1000; // CSB pull-up
+    assign bidir_pd[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b0110; // SCK & SDI pull-down
+    assign bidir_sl[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b0000; // fast slew
+    assign bidir_cs[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b1110; // Schmitt on 3 inputs
+    assign bidir_ie[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b1110; // inputs enabled
+    assign bidir_oe[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b0001; // SDO output enabled
 
+
+/*
     // set all other bidirs above the ztimer block to default zero
     assign bidir_pu[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
     assign bidir_pd[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
@@ -97,7 +99,7 @@ module chip_core #(
     assign bidir_cs[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
     assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
     assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-
+*/
     wire mii_rst_n;
     wire mii_rx_clk;
     wire mii_tx_clk;
@@ -179,15 +181,15 @@ module chip_core #(
         .rst_ni        (rst_n),
 
         // SPI slave
-        .cio_sck_i     (bidir_in [`PAD_ZTIMER_SCK]),
-        .cio_csb_i     (bidir_in [`PAD_ZTIMER_CSB]),
-        .cio_sd_i      (bidir_in [`PAD_ZTIMER_SDI]),
+        .cio_sck_i     (bidir_in[`PAD_ZTIMER_SCK]),
+        .cio_csb_i     (bidir_in[`PAD_ZTIMER_CSB]),
+        .cio_sd_i      (bidir_in[`PAD_ZTIMER_SDI]),
         .cio_sd_o      (bidir_out[`PAD_ZTIMER_SDO]),
 
         // controls
-        .rosc_enable_i (bidir_in [`PAD_ZTIMER_ROSC_EN]),
-        .start_i       (bidir_in [`PAD_ZTIMER_START]),
-        .stop_i        (bidir_in [`PAD_ZTIMER_STOP])
+        .rosc_enable_i (input_in [`PADI_ZTIMER_ROSC_EN]),
+        .start_i       (analog[`PADA_ZTIMER_START]),
+        .stop_i        (analog[`PADA_ZTIMER_STOP])
     );
    
     caravel_core caravel (
