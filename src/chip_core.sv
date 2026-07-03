@@ -34,19 +34,30 @@ module chip_core #(
 
     inout  wire [NUM_ANALOG_PADS-1:0] analog  // Analog
 );
-    //wire core_clock;
+
     // Wishbone from Caravel
     wire user_wb_clk_prebuf;
     wire user_wb_clk;
+    
     wire user_wb_rst;
     wire user_wb_cyc;
     wire user_wb_stb;
     wire user_wb_we;
+    wire user_wb_ack;
     wire [3:0]  user_wb_sel;
     wire [31:0] user_wb_adr;
     wire [31:0] user_wb_dat_wr;
     wire [31:0] user_wb_dat_rd;
-    wire user_wb_ack;
+    
+    wire user_wb_reg_rst;
+    wire user_wb_reg_cyc;
+    wire user_wb_reg_stb;
+    wire user_wb_reg_we;
+    wire user_wb_reg_ack;
+    wire [3:0]  user_wb_reg_sel;
+    wire [31:0] user_wb_reg_adr;
+    wire [31:0] user_wb_reg_dat_wr;
+    wire [31:0] user_wb_reg_dat_rd;
 
     // Additional Caravel signals
     wire npor;
@@ -106,6 +117,31 @@ module chip_core #(
     assign mii_tx_clk   = bidir_in[`PAD_MII_TX_CLK];
     assign mii_rx_dv    = bidir_in[`PAD_MII_RX_DV];
     assign mii_rx_data  = {bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]};
+    
+    wb_reg wb_reg (
+        .clk(user_wb_clk),
+        .rst(user_wb_rst),
+        
+        .wbm_adr_i(user_wb_adr),   
+        .wbm_dat_i(user_wb_dat_wr),
+        .wbm_dat_o(user_wb_dat_rd),
+        .wbm_we_i (user_wb_we),    
+        .wbm_sel_i(user_wb_sel),   
+        .wbm_stb_i(user_wb_stb),   
+        .wbm_ack_o(user_wb_ack),   
+        .wbm_cyc_i(user_wb_cyc),   
+        
+        .wbs_adr_o(user_wb_reg_adr),   
+        .wbs_dat_i(user_wb_reg_dat_rd),
+        .wbs_dat_o(user_wb_reg_dat_wr),
+        .wbs_we_o (user_wb_reg_we),    
+        .wbs_sel_o(user_wb_reg_sel),   
+        .wbs_stb_o(user_wb_reg_stb),   
+        .wbs_ack_i(user_wb_reg_ack),   
+        .wbs_cyc_o(user_wb_reg_cyc),
+        .wbs_err_i(0),
+        .wbs_rty_i(0)   
+    );
 
     liteeth_core eth_mac (
         .mii_clocks_rx(mii_rx_clk),
@@ -117,16 +153,16 @@ module chip_core #(
         .mii_tx_en(mii_tx_en),
         .sys_clock(user_wb_clk),
         .sys_reset(rst_n),
-        .wishbone_ack(user_wb_ack),
-        .wishbone_adr(user_wb_adr),
+        .wishbone_ack(user_wb_reg_ack),
+        .wishbone_adr(user_wb_reg_adr),
         .wishbone_bte(0),
         .wishbone_cti(0),
-        .wishbone_cyc(user_wb_cyc),
-        .wishbone_dat_r(user_wb_dat_rd),
-        .wishbone_dat_w(user_wb_dat_wr),
-        .wishbone_sel(user_wb_sel),
-        .wishbone_stb(user_wb_stb),
-        .wishbone_we(user_wb_we)
+        .wishbone_cyc(user_wb_reg_cyc),
+        .wishbone_dat_r(user_wb_reg_dat_rd),
+        .wishbone_dat_w(user_wb_reg_dat_wr),
+        .wishbone_sel(user_wb_reg_sel),
+        .wishbone_stb(user_wb_reg_stb),
+        .wishbone_we(user_wb_reg_we)
     );
 
     // Buffer wb clock
@@ -134,23 +170,7 @@ module chip_core #(
         .I(user_wb_clk_prebuf),
         .Z(user_wb_clk)
     );
-/*
-    // 512
-    logic macro_cen, macro_gwen;
-    logic [8:0] sram_addr;
-    logic [7:0] macro_wen, sram_wdata, sram_rdata;
 
-    assign macro_cen = 1'b1;
-    assign macro_gwen = 1'b0;
-    assign macro_wen = 8'h00;
-    assign sram_addr = 9'h00;
-    assign sram_wdata = 8'h00;
-
-   (* keep, dont_touch *) gf180mcu_fd_ip_sram__sram512x8m8wm1 sram_0 (
-        .CLK(clk), .CEN(macro_cen), .GWEN(macro_gwen),
-        .WEN(macro_wen[7:0]), .A(sram_addr), .D(sram_wdata[7:0]), .Q(sram_rdata[7:0])
-    );  // placing 1 instance to see how it fit in the repo before adding second
-*/
     //
     // ztimer
     //
@@ -165,9 +185,9 @@ module chip_core #(
         .cio_sd_o      (bidir_out[`PAD_ZTIMER_SDO]),
 
         // controls
-        .rosc_enable_i (input_in [`PADI_ZTIMER_ROSC_EN]),
-        .start_i       (input_in [`PADI_ZTIMER_START]),
-        .stop_i        (input_in [`PADI_ZTIMER_STOP])
+        .rosc_enable_i (bidir_in [`PAD_ZTIMER_ROSC_EN]),
+        .start_i       (bidir_in [`PAD_ZTIMER_START]),
+        .stop_i        (bidir_in [`PAD_ZTIMER_STOP])
     );
    
     caravel_core caravel (

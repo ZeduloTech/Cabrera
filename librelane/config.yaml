@@ -26,10 +26,13 @@ VERILOG_FILES:
 - dir::../src/wb_counter.v
 - dir::../src/chip_top.sv
 - dir::../src/chip_core.sv
+- dir::../src/wb_reg.v
 - dir::../EthernetMac/src/liteeth_core.v
 
 VERILOG_INCLUDE_DIRS: [ dir::../caravel/verilog/ ]
 
+#PL_RESIZER_SETUP_GATE_CLONING: false
+#PL_RESIZER_SETUP_BUFFERING: false
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True
 

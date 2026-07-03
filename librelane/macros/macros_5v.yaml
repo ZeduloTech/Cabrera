@@ -152,7 +152,7 @@ MACROS:
         - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/lib/gf180mcu_fd_ip_sram__sram256x8m8wm1__ff_n40C_5v50.lib
       "*_ss_125C_4v50":
         - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/lib/gf180mcu_fd_ip_sram__sram256x8m8wm1__ss_125C_4v50.lib
-    instances: # SRAM specified inpdn_cfg.tcl
+    instances:
       i_chip_core.eth_mac.u_mac_sram_reader_slot0:
         location: [3008, 1515] #tight 2210 
         orientation: N

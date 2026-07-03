@@ -18,10 +18,10 @@
 `define PAD_ZTIMER_SDI   20
 `define PAD_ZTIMER_SDO   21
 `define PAD_ZTIMER_END   `PAD_ZTIMER_SDO
-    // ztimer control inputs
-`define PADI_ZTIMER_ROSC_EN 4
-`define PADI_ZTIMER_START   5
-`define PADI_ZTIMER_STOP    6
+// ztimer control inputs
+`define PAD_ZTIMER_ROSC_EN 35
+`define PAD_ZTIMER_START   36
+`define PAD_ZTIMER_STOP    37
 
 // MII
 `define PAD_MII_RST     22

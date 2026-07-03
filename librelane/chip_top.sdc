@@ -71,6 +71,9 @@ if {$hierarchical_sta} {
 
 ###################### GENERAL CONSTRAINTS ############################# 
 
+create_clock [get_port bidir_PAD\[23\]] -name mii_rx_clk -period 400
+create_clock [get_port bidir_PAD\[29\]] -name mii_tx_clk -period 400
+
 set_false_path -through [get_pins $cvl/user_wb_rst_o]
 #set_case_analysis 0 [get_pins $cvl/user_wb_rst_o]
 
