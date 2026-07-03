@@ -38,8 +38,6 @@ module uart_tb;
     wire flash_clk;
     wire flash_io0;
     wire flash_io1;
-    wire flash_io2;
-    wire flash_io3;
     wire uart_tx;
     reg uart_rx = 1'b1;
     wire uart_loopback;
@@ -122,8 +120,6 @@ module uart_tb;
         .flash_clk(flash_clk),
         .flash_io0(flash_io0),
         .flash_io1(flash_io1),
-        .flash_io2(flash_io2),
-        .flash_io3(flash_io3),
         .resetb      (RSTB)
     );
 
@@ -134,8 +130,8 @@ module uart_tb;
         .clk(flash_clk),
         .io0(flash_io0),
         .io1(flash_io1),
-        .io2(flash_io2),            
-        .io3(flash_io3)           
+        .io2(),            // not used
+        .io3()            // not used
     );
 
         

@@ -4086,7 +4086,7 @@ wire [8:0] writer_slot0_adr_mux = wishbone_interface_writer_memory_we ?
                                   wishbone_interface_sram0_adr;
 wire [7:0] writer_slot0_q;
 
-(* keep, dont_touch *) gf180mcu_fd_ip_sram__sram512x8m8wm1 u_mac_sram_writer_slot0 (
+(* keep, dont_touch *) gf180mcu_fd_ip_sram__sram256x8m8wm1 u_mac_sram_writer_slot0 (
 `ifdef USE_POWERPINS
     .VDD(1'b1),
     .VSS(1'b0),
@@ -4134,7 +4134,7 @@ wire [7:0] reader_slot0_q;
 // CEN is active low. We enable the SRAM when writing (sram1_we) OR when the MAC is reading (reader_memory_re).
 wire reader_cen = ~(wishbone_interface_sram1_we | wishbone_interface_reader_memory_re);
 
-(* keep, dont_touch *) gf180mcu_fd_ip_sram__sram512x8m8wm1 u_mac_sram_reader_slot0 (
+(* keep, dont_touch *) gf180mcu_fd_ip_sram__sram256x8m8wm1 u_mac_sram_reader_slot0 (
 `ifdef USE_POWERPINS
     .VDD(1'b1),
     .VSS(1'b0),

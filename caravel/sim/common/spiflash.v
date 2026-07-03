@@ -48,7 +48,7 @@ module spiflash #(
 	inout io3
 );
 	localparam verbose = 0;
-	localparam integer latency = 2;
+	localparam integer latency = 8;
 	
 	reg [7:0] buffer;
 	reg [3:0] reset_count = 0;

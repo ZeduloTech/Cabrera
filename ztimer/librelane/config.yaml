@@ -46,8 +46,8 @@ FP_SIZING: absolute
 #DIE_AREA: [0, 0, 750, 750]
 #CORE_AREA: [50, 50, 700, 700]
 
-DIE_AREA: [0, 0, 180, 180]
-CORE_AREA: [10, 10, 170, 170]
+DIE_AREA: [0, 0, 200, 200]
+CORE_AREA: [10, 10, 190, 190]
 ############################### Placement ############################## 
 
 PL_TARGET_DENSITY_PCT: 70 #55

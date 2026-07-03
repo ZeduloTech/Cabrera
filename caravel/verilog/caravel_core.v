@@ -822,7 +822,7 @@ module caravel_core (
 	generate
 		for (i = 7; i < `MPRJ_IO_PADS; i = i + 1) begin
           gpio_defaults_block #(
-            .GPIO_CONFIG_INIT(`GPIO_MODE_MGMT_STD_BIDIRECTIONAL)
+            .GPIO_CONFIG_INIT(`GPIO_MODE_MGMT_STD_INPUT_NOPULL)
           ) gpio_defaults_block (
                 `ifdef USE_POWER_PINS
                 .VDD(VDD),

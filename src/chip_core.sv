@@ -87,16 +87,46 @@ module chip_core #(
     assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
     assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
 
-    wb_counter counter (
-        .wb_clk_i(user_wb_clk),
-        .wb_rst_i(user_wb_rst),
-        .wb_stb_i(user_wb_stb),
-        .wb_cyc_i(user_wb_cyc),
-        .wb_adr_i(user_wb_adr),
-        .wb_dat_i(user_wb_dat_wr),
-        .wb_we_i (user_wb_we),
-        .wb_dat_o(user_wb_dat_rd),
-        .wb_ack_o(user_wb_ack)
+    wire mii_rst_n;
+    wire mii_rx_clk;
+    wire mii_tx_clk;
+    wire [3:0] mii_rx_data;
+    wire mii_rx_dv;
+    wire [3:0] mii_tx_data;
+    wire mii_tx_en;
+
+    assign bidir_out[`PAD_MII_RST]      = mii_rst_n;
+    assign bidir_out[`PAD_MII_TX_EN]    = mii_tx_en;
+    assign bidir_out[`PAD_MII_TX_DAT0]  = mii_tx_data[0];
+    assign bidir_out[`PAD_MII_TX_DAT1]  = mii_tx_data[1];
+    assign bidir_out[`PAD_MII_TX_DAT2]  = mii_tx_data[2];
+    assign bidir_out[`PAD_MII_TX_DAT3]  = mii_tx_data[3];
+    
+    assign mii_rx_clk   = bidir_in[`PAD_MII_RX_CLK];
+    assign mii_tx_clk   = bidir_in[`PAD_MII_TX_CLK];
+    assign mii_rx_dv    = bidir_in[`PAD_MII_RX_DV];
+    assign mii_rx_data  = {bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]};
+
+    liteeth_core eth_mac (
+        .mii_clocks_rx(mii_rx_clk),
+        .mii_clocks_tx(mii_tx_clk),
+        .mii_rst_n(mii_rst_n),
+        .mii_rx_data(mii_rx_data),
+        .mii_rx_dv(mii_rx_dv),
+        .mii_tx_data(mii_tx_data),
+        .mii_tx_en(mii_tx_en),
+        .sys_clock(user_wb_clk),
+        .sys_reset(rst_n),
+        .wishbone_ack(user_wb_ack),
+        .wishbone_adr(user_wb_adr),
+        .wishbone_bte(0),
+        .wishbone_cti(0),
+        .wishbone_cyc(user_wb_cyc),
+        .wishbone_dat_r(user_wb_dat_rd),
+        .wishbone_dat_w(user_wb_dat_wr),
+        .wishbone_sel(user_wb_sel),
+        .wishbone_stb(user_wb_stb),
+        .wishbone_we(user_wb_we)
     );
 
     // Buffer wb clock
@@ -104,7 +134,7 @@ module chip_core #(
         .I(user_wb_clk_prebuf),
         .Z(user_wb_clk)
     );
-
+/*
     // 512
     logic macro_cen, macro_gwen;
     logic [8:0] sram_addr;
@@ -117,13 +147,10 @@ module chip_core #(
     assign sram_wdata = 8'h00;
 
    (* keep, dont_touch *) gf180mcu_fd_ip_sram__sram512x8m8wm1 sram_0 (
-    `ifdef USE_POWER_PINS
-        .VDD(VDD), .VSS(VSS),
-    `endif
         .CLK(clk), .CEN(macro_cen), .GWEN(macro_gwen),
         .WEN(macro_wen[7:0]), .A(sram_addr), .D(sram_wdata[7:0]), .Q(sram_rdata[7:0])
     );  // placing 1 instance to see how it fit in the repo before adding second
-
+*/
     //
     // ztimer
     //
@@ -201,8 +228,21 @@ module chip_core #(
     );
     assign caravel_start_mode = 1'b0;
 
+    // 10Base-T PHY ip
+    (* keep *) tenbaset_tx_driver tenbaset_tx_driver (
+        .D0P(0),
+        .D0N(0),
+        .D1P(0),
+        .D1N(0),
+        .D2P(0),
+        .D2N(0),
+        
+        .TXP_PADOUT(analog[6]),
+        .TXN_PADOUT(analog[7])
+    );
+
     // flash ip
-    (* keep *) Flash_SPI flash_ip ();
+    (* keep *) flash_ip flash_ip ();
 
 endmodule
 

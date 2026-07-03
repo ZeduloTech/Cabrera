@@ -43,7 +43,7 @@ create_generated_clock -name hk_serial_clk -source [get_pins serial_clk_buf/I] -
 create_generated_clock -name hk_serial_load -source [get_pins serial_load_clk_buf/I] -divide_by 20 -master clk [get_pins serial_load_clk_buf/Z]
 
 ## Flash & WB generated clocks
-create_generated_clock -name flash_clk -source [get_pins flash_clk_buf/Z] -divide_by 2 [get_ports flash_clk_frame]
+create_generated_clock -name flash_clk -source [get_pins flash_clk_buf/Z] -divide_by 4 [get_ports flash_clk_frame]
 create_generated_clock -name user_wb_clk -source [get_pins user_wb_clk_buf/Z] -divide_by 1 [get_ports user_wb_clk_o]
 
 set_clock_uncertainty 1 [get_clocks {hk_serial_clk hk_serial_load}]

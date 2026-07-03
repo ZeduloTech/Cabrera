@@ -23,10 +23,19 @@
 `define PADI_ZTIMER_START   5
 `define PADI_ZTIMER_STOP    6
 
-// I2C
-`define PAD_OT_LOW    33
-`define PAD_OT_I2CSDA 34
-`define PAD_OT_I2CSCL 35
-`define PAD_OT_HIGH   36
+// MII
+`define PAD_MII_RST     22
+`define PAD_MII_RX_CLK  23
+`define PAD_MII_RX_DV   24
+`define PAD_MII_RX_DAT0 25
+`define PAD_MII_RX_DAT1 26
+`define PAD_MII_RX_DAT2 27
+`define PAD_MII_RX_DAT3 28
+`define PAD_MII_TX_CLK  29
+`define PAD_MII_TX_EN   30
+`define PAD_MII_TX_DAT0 31
+`define PAD_MII_TX_DAT1 32
+`define PAD_MII_TX_DAT2 33
+`define PAD_MII_TX_DAT3 34
 
 `endif

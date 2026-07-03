@@ -152,6 +152,10 @@ module mgmt_core_wrapper #(parameter LA_WIDTH = 64)(
     /* Implement the PicoSoC core */
 
     mgmt_core core (
+	`ifdef USE_POWER_PINS
+	    .VDD(VDD),	    /* 1.8V domain */
+	    .VSS(VSS),
+	`endif
     	.core_clk(core_clk),
     	.core_rstn(core_rstn),
 
@@ -228,12 +232,12 @@ module mgmt_core_wrapper #(parameter LA_WIDTH = 64)(
     	.spi_mosi(spi_sdo),
     	.debug_in(debug_in),
     	.debug_out(debug_out),
-    	.debug_oeb(debug_oeb)
+    	.debug_oeb(debug_oeb),
         
-        //.cpu_reset_vector(cpu_reset_vector)
+        .cpu_reset_vector(cpu_reset_vector)
     );
 
-    assign cpu_reset_vector = start_from_user ? 32'h30000000 : 32'h10000000;
+assign cpu_reset_vector = start_from_user ? 32'h30000000 : 32'h10000000;
 
 endmodule
 `default_nettype wire

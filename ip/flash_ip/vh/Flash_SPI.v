@@ -1,3 +1,3 @@
 (* blackbox *)
-module Flash_SPI;
+module flash_ip;
 endmodule

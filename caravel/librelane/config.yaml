@@ -6,16 +6,16 @@ meta:
   substituting_steps:
     
     # Save time
-    Magic.DRC: null                 
-    KLayout.DRC: null
-    OpenROAD.IRDropReport: null
-    Magic.SpiceExtraction: null    
-    Checker.MagicDRC: null
-    KLayout.XOR: null
-    Netgen.LVS: null
-    Checker.LVS: null
-    Checker.SetupViolations: null
-    Verilator.Lint: null
+    #Magic.DRC: null                 
+    #KLayout.DRC: null
+    #OpenROAD.IRDropReport: null
+    #Magic.SpiceExtraction: null    
+    #Checker.MagicDRC: null
+    #KLayout.XOR: null
+    #Netgen.LVS: null
+    #Checker.LVS: null
+    #Checker.SetupViolations: null
+    #Verilator.Lint: null
     
     Checker.YosysSynthChecks: null  # Fails due to multisources in PLL
 
@@ -114,7 +114,7 @@ GND_NETS:
 
 # Clock, period should be consistent with sdc_defs.tcl
 CLOCK_PORT: "clock_core"
-CLOCK_PERIOD: 50
+CLOCK_PERIOD: 30
 
 ############################ Floorplanning ############################# 
 

@@ -169,6 +169,7 @@ module gpio_control_block #(
     /* These pad configuration signals are static and do not change	*/
     /* after setup.							*/
 
+    assign pad_gpio_inen            =   gpio_inen;
     assign pad_gpio_slew_sel        =   gpio_slew_sel;
     assign pad_gpio_schmitt_sel     =   gpio_schmitt_sel;
     assign pad_gpio_drive_sel       =   gpio_drive_sel;
@@ -187,8 +188,6 @@ module gpio_control_block #(
      */
     assign pad_gpio_outen = (gpio_oe_override) ? gpio_outen :
 			((mgmt_ena) ? ~mgmt_gpio_oeb  : ~user_gpio_oeb);
-    assign pad_gpio_inen = (gpio_oe_override) ? gpio_inen :
-			((mgmt_ena) ? mgmt_gpio_oeb  : user_gpio_oeb);
 
     assign pad_gpio_out = (mgmt_ena) ? mgmt_gpio_out : user_gpio_out;
 

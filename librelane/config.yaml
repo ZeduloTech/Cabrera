@@ -2,25 +2,22 @@ meta:
   version: 3
   flow: Chip
   substituting_steps:
-  
-    # Disable KLayout antenna check
-    KLayout.Antenna: null
-    Checker.KLayoutAntenna: null
 
-    # Disable KLayout density check
-    KLayout.Density: null
-    Checker.KLayoutDensity: null
+    # Render the layout after sealring insertion
+    KLayout.Render: null
+    +KLayout.SealRing: KLayout.Render
 
     # Save time during development
     # Enable for sign-off
-    KLayout.DRC: null
-    Checker.KLayoutDRC: null
+    #KLayout.DRC: null
+    #Checker.KLayoutDRC: null
     #OpenROAD.IRDropReport: null
-    Magic.DRC: null
-    Checker.MagicDRC: null
-    KLayout.XOR: null
-    Netgen.LVS: null
-    Checker.LVS: null
+    #Magic.DRC: null
+    #Checker.MagicDRC: null
+    #KLayout.XOR: null
+    #Netgen.LVS: null
+    #Checker.LVS: null
+    OpenROAD.IRDropReport: null
     
     Checker.YosysSynthChecks: null  # Fails due to multisources in PLL
 
@@ -29,6 +26,7 @@ VERILOG_FILES:
 - dir::../src/wb_counter.v
 - dir::../src/chip_top.sv
 - dir::../src/chip_core.sv
+- dir::../EthernetMac/src/liteeth_core.v
 
 VERILOG_INCLUDE_DIRS: [ dir::../caravel/verilog/ ]
 
@@ -53,14 +51,12 @@ GND_NETS:
 # due to the unused Y output for output only pads
 IGNORE_DISCONNECTED_MODULES:
 - gf180mcu_fd_io__bi_24t
-- gf180mcu_ws_ip__id
-- gf180mcu_ws_ip__logo
-- Flash_SPI
+- flash_ip
 
 # Clock
 CLOCK_NET: i_chip_core.wb_clk_buf/Z
 
-CLOCK_PERIOD: 50 # 20 MHz
+CLOCK_PERIOD: 30 # 33 MHz
 
 # Fix hold violations
 PL_RESIZER_HOLD_SLACK_MARGIN: 0.35
@@ -72,35 +68,32 @@ PL_TARGET_DENSITY_PCT: 35
 GRT_ALLOW_CONGESTION: true
 
 # PDN
-PDN_CFG: dir::pdn_cfg.tcl
+PDN_CFG: dir::pdn/pdn_cfg.tcl
 PDN_CORE_RING: True
 # Maximum metal width without slotting: 30um
 PDN_CORE_RING_VWIDTH: 25
 PDN_CORE_RING_HWIDTH: 25
 PDN_CORE_RING_CONNECT_TO_PADS: True
 PDN_ENABLE_PINS: False
-PDN_CORE_VERTICAL_LAYER: Metal2
+PDN_CORE_VERTICAL_LAYER: Metal4
 PDN_CORE_HORIZONTAL_LAYER: Metal3
-PDN_HPITCH: 100
-PDN_VOFFSET: 3.5
+PDN_HPITCH: 50
+PDN_CORE_RING_CONNECT_TO_PAD_LAYERS: [Metal2]
 
 # To disable ports buffering & wire repair with dly cells as they degrade timing
 PNR_EXCLUDED_CELL_FILE: dir::../caravel/librelane/pnr_exclude.cells
 
 # To fix antennas
 DESIGN_REPAIR_MAX_WIRE_LENGTH: 1000
-DIODE_ON_PORTS: both
+#DIODE_ON_PORTS: both
 GRT_ANTENNA_MARGIN: 20
 GRT_ANTENNA_ITERS: 10
 DRT_ANTENNA_REPAIR_ITERS: 10
 
-PDN_MACRO_CONNECTIONS:
-  - "i_chip_core.sram_0 VDD VSS VDD VSS"
-
 # Do not error on magic DRC violations
 # Note: Passing magic DRC is not required for the submission.
 # However, it is recommended to fix or carefully review all violations.
-ERROR_ON_MAGIC_DRC: False
+#ERROR_ON_MAGIC_DRC: False
 
 # Prevent false positive DRC errors in I/O cells
 MAGIC_GDS_FLATGLOB:
@@ -135,6 +128,9 @@ MAGIC_GDS_FLATGLOB:
 - "xdec32_*"
 - "sa_*"
 
+LVS_IGNORE_CELLS:
+- "*flash_ip*"
+
 # Since we cannot meet the minimum density limit on Metal2,
 # ignore active metal on previous and subsequent layers
 # (DM.5_DM.7 and DM.4_DM.6). Dummy metal is moved to active
@@ -145,113 +141,31 @@ KLAYOUT_FILLER_OPTIONS:
 # Because we have multiple power pads for one power domain
 MAGIC_EXT_UNIQUE: notopports
 
-MACROS:
-  gf180mcu_ws_ip__id:
-    gds:
-      - dir::../ip/gf180mcu_ws_ip__id/gds/gf180mcu_ws_ip__id.gds
-    lef:
-      - dir::../ip/gf180mcu_ws_ip__id/lef/gf180mcu_ws_ip__id.lef
-    vh:
-      - dir::../ip/gf180mcu_ws_ip__id/vh/gf180mcu_ws_ip__id.v
-    lib:
-      "*":
-        - dir::../ip/gf180mcu_ws_ip__id/lib/gf180mcu_ws_ip__id.lib
-    instances:
-      chip_id:
-        location: [26, 26]
-        orientation: N
+# Image render settings
+KLAYOUT_RENDER_RESOLUTION: 2048
+KLAYOUT_RENDER_OVERSAMPLING: 3
+KLAYOUT_PROPERTIES: dir::gf180mcu_render.lyp
 
-  gf180mcu_ws_ip__logo:
-    gds:
-      - dir::../ip/gf180mcu_ws_ip__logo/gds/gf180mcu_ws_ip__logo.gds
-    lef:
-      - dir::../ip/gf180mcu_ws_ip__logo/lef/gf180mcu_ws_ip__logo.lef
-    vh:
-      - dir::../ip/gf180mcu_ws_ip__logo/vh/gf180mcu_ws_ip__logo.v
-    lib:
-      "*":
-        - dir::../ip/gf180mcu_ws_ip__logo/lib/gf180mcu_ws_ip__logo.lib
-    instances:
-      wafer_space_logo:
-        location: ["expr::$DIE_AREA[2] + -169.25", "expr::$DIE_AREA[3] + -169.25"]
-        orientation: N
-        
-  caravel_core:
-    gds:
-      - dir::../caravel/final/gds/caravel_core.gds.gz
-    lef:
-      - dir::../caravel/final/lef/caravel_core.lef
-    pnl:
-      - dir::../caravel/final/pnl/caravel_core.pnl.v
-    lib:
-      "*tt*" : [ dir::../caravel/final/lib/nom_tt_025C_5v00/caravel_core__nom_tt_025C_5v00.lib ]
-      "*ss*" : [ dir::../caravel/final/lib/max_ss_125C_4v50/caravel_core__max_ss_125C_4v50.lib ]
-      "*ff*" : [ dir::../caravel/final/lib/min_ff_n40C_5v50/caravel_core__min_ff_n40C_5v50.lib ]
-    spef:
-      "*tt*" : [ dir::../caravel/final/spef/nom/caravel_core.nom.spef.gz ]
-      "*ss*" : [ dir::../caravel/final/spef/max/caravel_core.max.spef.gz ]
-      "*ff*" : [ dir::../caravel/final/spef/min/caravel_core.min.spef.gz ]
-    instances:
-      i_chip_core.caravel:
-        location: [490, 475] #500
-        orientation: N
+# DRC settings
+# A high number of workers increases RAM usage,
+# but can significantly improve the performance.
+# workers * threads should equal the available
+# hardware threads for a best possible utilization.
 
-  rosc_spi_bridge:
-    gds:
-      - dir::../ztimer/final/gds/rosc_spi_bridge.gds
-    lef:
-      - dir::../ztimer/final/lef/rosc_spi_bridge.lef
-    vh:
-      - dir::../ztimer/final/vh/rosc_spi_bridge.vh
-    lib:
-      "*tt*" : [ dir::../ztimer/final/lib/nom_tt_025C_5v00/rosc_spi_bridge__nom_tt_025C_5v00.lib ]
-      "*ff*" : [ dir::../ztimer/final/lib/min_ff_n40C_5v50/rosc_spi_bridge__min_ff_n40C_5v50.lib ]
-      "*ss*" : [ dir::../ztimer/final/lib/max_ss_125C_4v50/rosc_spi_bridge__max_ss_125C_4v50.lib ]
-    instances:
-      i_chip_core.u_ztimer:
-        location: [490, 1515]
-        orientation: N
+KLAYOUT_DRC_THREADS: 1
 
-  Flash_SPI:
-    gds:
-      - dir::../ip/flash_ip/gds/Flash_SPI.gds
-    lef:
-      - dir::../ip/flash_ip/lef/Flash_SPI.lef
-    vh:
-      - dir::../ip/flash_ip/vh/Flash_SPI.v
-    instances:
-      i_chip_core.flash_ip:
-        location: [513, 1900]
-        orientation: N
+# "max" equals max hardware threads
+KLAYOUT_DRC_OPTIONS:
+  decks: "all,-antenna,-density,-cup" # disable CUP for now
+  variant: ref::$PDK
+  workers: max
 
-  gf180mcu_fd_ip_sram__sram512x8m8wm1:
-    gds:
-      - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/gds/gf180mcu_fd_ip_sram__sram512x8m8wm1.gds
-    lef:
-      - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/lef/gf180mcu_fd_ip_sram__sram512x8m8wm1.lef
-    vh:
-      - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/verilog/gf180mcu_fd_ip_sram__sram512x8m8wm1__blackbox.v
-    lib:
-      "*_tt_025C_5v00":
-        - dir::../ip/sram/gf180mcu_fd_ip_sram__sram512x8m8wm1__tt_025C_5v00.lib
-      "*_ff_n40C_5v50":
-        - dir::../ip/sram/gf180mcu_fd_ip_sram__sram512x8m8wm1__ff_n40C_5v50.lib
-      "*_ss_125C_4v50":
-        - dir::../ip/sram/gf180mcu_fd_ip_sram__sram512x8m8wm1__ss_125C_4v50.lib
-    instances: # SRAM specified inpdn_cfg.tcl
-      i_chip_core.sram_0:
-        location: [3008, 1515] #tight 2210 
-        orientation: N
+KLAYOUT_DENSITY_OPTIONS:
+  decks: "density"
+  variant: ref::$PDK
+  workers: max
 
-        
-# Make sure netgen doesn't create 'no_connect' nets
-# Not needed since netgen 1.5.303
-LVS_FLATTEN_CELLS:
-- gf180mcu_ws_ip__id
-- gf180mcu_ws_ip__logo
-
-# gf180mcu_ws_ip__id/logo has no ports and components
-# therefore make it an abstract cell in the layout
-MAGIC_EXT_ABSTRACT_CELLS:
-- gf180mcu_ws_ip__id
-- gf180mcu_ws_ip__logo
+KLAYOUT_ANTENNA_OPTIONS:
+  decks: "antenna"
+  variant: ref::$PDK
+  workers: max
