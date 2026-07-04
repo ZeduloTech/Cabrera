@@ -83,6 +83,9 @@ PDN_CORE_HORIZONTAL_LAYER: Metal3
 PDN_HPITCH: 50
 PDN_CORE_RING_CONNECT_TO_PAD_LAYERS: [Metal2]
 
+PDN_OBSTRUCTIONS: 
+ - [Via4, 3101, 545, 3106, 615]
+
 # To disable ports buffering & wire repair with dly cells as they degrade timing
 PNR_EXCLUDED_CELL_FILE: dir::../caravel/librelane/pnr_exclude.cells
 
