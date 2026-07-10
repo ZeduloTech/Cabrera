@@ -2797,7 +2797,8 @@ always @(*) begin
             //wishbone_interface_writer_length_liteethmacsramwriter_t_next_value /*<*/= 1'd0;
             wishbone_interface_writer_length_liteethmacsramwriter_t_next_value /*<*/= 10'd0;
             wishbone_interface_writer_length_liteethmacsramwriter_t_next_value_ce /*<*/= 1'd1;
-            wishbone_interface_writer_slot_liteethmacsramwriter_next_value /*<*/= (wishbone_interface_writer_slot + 1'd1);
+            //wishbone_interface_writer_slot_liteethmacsramwriter_next_value /*<*/= (wishbone_interface_writer_slot + 1'd1);
+            wishbone_interface_writer_slot_liteethmacsramwriter_next_value /*<*/= 1'b0;
             wishbone_interface_writer_slot_liteethmacsramwriter_next_value_ce /*<*/= 1'd1;
             //liteethmacsramwriter_next_state /*<*/= 1'd0;
             liteethmacsramwriter_next_state /*<*/= 3'd0;
