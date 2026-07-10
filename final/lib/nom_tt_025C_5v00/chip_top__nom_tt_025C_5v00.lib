@@ -48,7 +48,7 @@ library (chip_top) {
   }
 
   cell ("chip_top") {
-    area : 8072095.500 
+    area : 8040880.000 
     is_macro_cell : true;
     pin("clk_PAD") {
       direction : inout;
