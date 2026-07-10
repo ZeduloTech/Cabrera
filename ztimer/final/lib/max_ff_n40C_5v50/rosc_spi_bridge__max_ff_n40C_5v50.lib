@@ -1,0 +1,235 @@
+library (rosc_spi_bridge) {
+  comment                        : "";
+  delay_model                    : table_lookup;
+  simulation                     : false;
+  capacitive_load_unit (1,pF);
+  leakage_power_unit             : 1pW;
+  current_unit                   : "1mA";
+  pulling_resistance_unit        : "1ohm";
+  time_unit                      : "1ns";
+  voltage_unit                   : "1v";
+  library_features(report_delay_calculation);
+
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  slew_lower_threshold_pct_rise : 30;
+  slew_lower_threshold_pct_fall : 30;
+  slew_upper_threshold_pct_rise : 70;
+  slew_upper_threshold_pct_fall : 70;
+  slew_derate_from_library : 1.0;
+
+
+  nom_process                    : 1.0;
+  nom_temperature                : -40.0;
+  nom_voltage                    : 5.50;
+
+  lu_table_template(template_1) {
+    variable_1 : total_output_net_capacitance;
+    index_1("0.00100,  0.00260,  0.00822,  0.01895,  0.03566,  0.05912,  0.08998,  0.12890,  0.17630,  0.23290");
+  }
+
+  cell ("rosc_spi_bridge") {
+    area : 76679.469 
+    is_macro_cell : true;
+    pin("cio_csb_i") {
+      direction : input;
+      capacitance : 0.0091;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("0.61536");
+	}
+	fall_constraint(scalar) {
+          values("0.67657");
+	}
+      }
+      timing() {
+        related_pin : "clk_i";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("-0.48318");
+	}
+	fall_constraint(scalar) {
+          values("-0.49640");
+	}
+      }
+    }
+    pin("cio_sck_i") {
+      direction : input;
+      capacitance : 0.0134;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("0.53073");
+	}
+	fall_constraint(scalar) {
+          values("0.72119");
+	}
+      }
+      timing() {
+        related_pin : "clk_i";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("-0.39464");
+	}
+	fall_constraint(scalar) {
+          values("-0.53867");
+	}
+      }
+    }
+    pin("cio_sd_i") {
+      direction : input;
+      capacitance : 0.0065;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("0.58589");
+	}
+	fall_constraint(scalar) {
+          values("0.75681");
+	}
+      }
+      timing() {
+        related_pin : "clk_i";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("-0.45159");
+	}
+	fall_constraint(scalar) {
+          values("-0.57606");
+	}
+      }
+    }
+    pin("cio_sd_o") {
+      direction : output;
+      capacitance : 0.0075;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : rising_edge;
+	cell_rise(template_1) {
+          index_1("0.00100,  0.00260,  0.00822,  0.01895,  0.03566,  0.05912,  0.08998,  0.12890,  0.17630,  0.23290");
+          values("2.41819,2.43029,2.46759,2.53439,2.63790,2.78471,2.97901,3.22532,3.52632,3.88532");
+	}
+	rise_transition(template_1) {
+          index_1("0.00100,  0.00260,  0.00822,  0.01895,  0.03566,  0.05912,  0.08998,  0.12890,  0.17630,  0.23290");
+          values("0.06584,0.08116,0.13707,0.24759,0.42790,0.68610,1.02600,1.45499,1.97700,2.60001");
+	}
+	cell_fall(template_1) {
+          index_1("0.00100,  0.00260,  0.00822,  0.01895,  0.03566,  0.05912,  0.08998,  0.12890,  0.17630,  0.23290");
+          values("2.43779,2.44860,2.47981,2.52848,2.59709,2.69039,2.81368,2.96984,3.16110,3.38867");
+	}
+	fall_transition(template_1) {
+          index_1("0.00100,  0.00260,  0.00822,  0.01895,  0.03566,  0.05912,  0.08998,  0.12890,  0.17630,  0.23290");
+          values("0.06434,0.07533,0.10811,0.16815,0.26718,0.41691,0.62002,0.87812,1.19381,1.57100");
+	}
+      }
+    }
+    pin("clk_i") {
+      direction : input;
+      clock : true;
+      capacitance : 0.0444;
+      timing() {
+        timing_sense : positive_unate;
+        timing_type : min_clock_tree_path;
+	cell_rise(scalar) {
+          values("0.68473");
+	}
+	cell_fall(scalar) {
+          values("0.66288");
+	}
+      }
+      timing() {
+        timing_sense : positive_unate;
+        timing_type : max_clock_tree_path;
+	cell_rise(scalar) {
+          values("0.69680");
+	}
+	cell_fall(scalar) {
+          values("0.67647");
+	}
+      }
+    }
+    pin("rosc_enable_i") {
+      direction : input;
+      capacitance : 0.0154;
+    }
+    pin("rst_ni") {
+      direction : input;
+      capacitance : 0.0203;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("-0.82231");
+	}
+	fall_constraint(scalar) {
+          values("-2.93299");
+	}
+      }
+      timing() {
+        related_pin : "clk_i";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("5.10980");
+	}
+	fall_constraint(scalar) {
+          values("5.05927");
+	}
+      }
+    }
+    pin("start_i") {
+      direction : input;
+      capacitance : 0.0449;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("0.11216");
+	}
+	fall_constraint(scalar) {
+          values("0.31229");
+	}
+      }
+      timing() {
+        related_pin : "clk_i";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("0.03533");
+	}
+	fall_constraint(scalar) {
+          values("-0.12092");
+	}
+      }
+    }
+    pin("stop_i") {
+      direction : input;
+      capacitance : 0.0757;
+      timing() {
+        related_pin : "clk_i";
+        timing_type : hold_rising;
+	rise_constraint(scalar) {
+          values("0.07548");
+	}
+	fall_constraint(scalar) {
+          values("0.40971");
+	}
+      }
+      timing() {
+        related_pin : "clk_i";
+        timing_type : setup_rising;
+	rise_constraint(scalar) {
+          values("3.51284");
+	}
+	fall_constraint(scalar) {
+          values("3.57961");
+	}
+      }
+    }
+  }
+
+}
