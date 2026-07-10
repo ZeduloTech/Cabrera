@@ -18,13 +18,13 @@
 `define PAD_ZTIMER_SDI   20
 `define PAD_ZTIMER_CSB   21
  // ztimer control inputs
-`define PADI_ZTIMER_ROSC_EN 1
-`define PADA_ZTIMER_START   0
-`define PADA_ZTIMER_STOP    1
+`define PADI_ZTIMER_ROSC_EN 0
+`define PADI_ZTIMER_START   1
+`define PADI_ZTIMER_STOP    2
  // markers
 `define PAD_ZTIMER_SPI_LO `PAD_ZTIMER_SDO
 `define PAD_ZTIMER_SPI_HI `PAD_ZTIMER_CSB
-`define PAD_ZTIMER_START `PAD_ZTIMER_SDO
+`define PAD_ZTIMER_BEGIN `PAD_ZTIMER_SDO
 `define PAD_ZTIMER_END   `PAD_ZTIMER_CSB
 
 

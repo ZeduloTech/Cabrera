@@ -9,12 +9,12 @@ meta:
 
     # Save time during development
     # Enable for sign-off
-    #KLayout.DRC: null
-    #Checker.KLayoutDRC: null
+    KLayout.DRC: null
+    Checker.KLayoutDRC: null
     #OpenROAD.IRDropReport: null
-    #Magic.DRC: null
-    #Checker.MagicDRC: null
-    #KLayout.XOR: null
+    Magic.DRC: null
+    Checker.MagicDRC: null
+    KLayout.XOR: null
     #Netgen.LVS: null
     #Checker.LVS: null
     OpenROAD.IRDropReport: null
@@ -90,12 +90,12 @@ PDN_OBSTRUCTIONS:
 PNR_EXCLUDED_CELL_FILE: dir::../caravel/librelane/pnr_exclude.cells
 
 # To fix antennas
-DESIGN_REPAIR_MAX_WIRE_LENGTH: 1000
+DESIGN_REPAIR_MAX_WIRE_LENGTH: 2500 #1000
 #DIODE_ON_PORTS: both
 GRT_ANTENNA_MARGIN: 20
 GRT_ANTENNA_ITERS: 10
 DRT_ANTENNA_REPAIR_ITERS: 10
-
+PL_MAX_DISPLACEMENT_Y: 250   # i add
 # Do not error on magic DRC violations
 # Note: Passing magic DRC is not required for the submission.
 # However, it is recommended to fix or carefully review all violations.

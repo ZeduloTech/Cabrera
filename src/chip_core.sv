@@ -100,6 +100,26 @@ module chip_core #(
     assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
     assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
 */
+
+    // Config psds for EthMac, MII
+    // MII: RST + TX_EN + TXD[3:0] are outputs; clocks + RX are inputs
+    assign bidir_oe [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b1111_1_0000000_1;
+    assign bidir_ie [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;
+    assign bidir_out[`PAD_MII_TX_CLK :`PAD_MII_RX_CLK] = '0;  //unused out on input pads tied
+    assign bidir_pu [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
+    assign bidir_pd [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
+    assign bidir_sl [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
+    assign bidir_cs [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;  // Schmitt on inputs
+
+    // Unused bidir pads: outputs off, inputs off, pulled down
+    assign bidir_out[NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_oe [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_ie [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_pu [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_pd [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '1;
+    assign bidir_sl [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_cs [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+
     wire mii_rst_n;
     wire mii_rx_clk;
     wire mii_tx_clk;
@@ -187,9 +207,9 @@ module chip_core #(
         .cio_sd_o      (bidir_out[`PAD_ZTIMER_SDO]),
 
         // controls
-        .rosc_enable_i (input_in [`PADI_ZTIMER_ROSC_EN]),
-        .start_i       (analog[`PADA_ZTIMER_START]),
-        .stop_i        (analog[`PADA_ZTIMER_STOP])
+        .rosc_enable_i (input_in[`PADI_ZTIMER_ROSC_EN]),
+        .start_i       (input_in[`PADI_ZTIMER_START]),
+        .stop_i        (input_in[`PADI_ZTIMER_STOP])
     );
    
     caravel_core caravel (
@@ -258,7 +278,7 @@ module chip_core #(
         .D1N(0),
         .D2P(0),
         .D2N(0),
-        
+
         .TXP_PADOUT(analog[6]),
         .TXN_PADOUT(analog[7])
     );

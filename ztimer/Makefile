@@ -37,7 +37,7 @@ librelane-klayout: ## Open the last run in KLayout
 copy-final: ## Copy final output files from the last run
 	rm -rf final/
 	cp -r librelane/runs/${RUN_TAG}/final/ final/
-	gzip -f9 final/gds/i2c.gds
+	gzip -f9 final/gds/rosc_spi_bridge.gds
 	gzip -f9 final/spef/nom/*.spef
 	gzip -f9 final/spef/max/*.spef
 	gzip -f9 final/spef/min/*.spef

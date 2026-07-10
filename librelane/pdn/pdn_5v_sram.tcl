@@ -10,6 +10,7 @@ define_pdn_grid \
 add_pdn_connect \
     -grid tenbaset_tx_driver \
     -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+# i commented above
 
 #add_pdn_connect \
     #-grid tenbaset_tx_driver \

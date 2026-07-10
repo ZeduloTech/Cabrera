@@ -100,7 +100,7 @@ MACROS:
 
   rosc_spi_bridge:
     gds:
-      - dir::../ztimer/final/gds/rosc_spi_bridge.gds
+      - dir::../ztimer/final/gds/rosc_spi_bridge.gds.gz
     lef:
       - dir::../ztimer/final/lef/rosc_spi_bridge.lef
     vh:
