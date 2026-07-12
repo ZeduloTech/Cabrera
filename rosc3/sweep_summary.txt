@@ -1,0 +1,10 @@
+DIE_SIZE     | MARK   | LAST_STEP                        | RUN
+-------------+--------+----------------------------------+---------------------------
+150x150      | FAIL   | (none)                           | (no run dir)
+125x125      | FAIL   | (none)                           | (no run dir)
+100x100      | FAIL   | (none)                           | (no run dir)
+80x80        | FAIL   | (none)                           | (no run dir)
+60x60        | FAIL   | (none)                           | (no run dir)
+50x50        | FAIL   | (none)                           | (no run dir)
+40x40        | FAIL   | (none)                           | (no run dir)
+30x30        | FAIL   | (none)                           | (no run dir)

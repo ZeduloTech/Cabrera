@@ -1,0 +1,41 @@
+(DELAYFILE
+ (SDFVERSION "3.0")
+ (DESIGN "not_rosc5")
+ (DATE "Sat Jul 11 19:59:30 2026")
+ (VENDOR "Parallax")
+ (PROGRAM "STA")
+ (VERSION "2.7.0")
+ (DIVIDER .)
+ (TIMESCALE 1ns)
+ (CELL
+  (CELLTYPE "not_rosc5")
+  (INSTANCE)
+  (DELAY
+   (ABSOLUTE
+    (INTERCONNECT rosc_enable _0_.A1 (0.065:0.065:0.065) (0.040:0.040:0.040))
+    (INTERCONNECT _0_.ZN _0_.A2 (0.000:0.000:0.000))
+    (INTERCONNECT _0_.ZN wire1.I (0.000:0.000:0.000))
+    (INTERCONNECT wire1.Z rosc_out (0.001:0.001:0.001) (0.001:0.001:0.001))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__nand2_1")
+  (INSTANCE _0_)
+  (DELAY
+   (ABSOLUTE
+    (IOPATH A1 ZN (0.179:0.179:0.179) (0.165:0.165:0.165))
+    (IOPATH A2 ZN (0.000:0.000:0.000))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkbuf_3")
+  (INSTANCE wire1)
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I Z (0.434:0.434:0.434) (0.442:0.442:0.442))
+   )
+  )
+ )
+)

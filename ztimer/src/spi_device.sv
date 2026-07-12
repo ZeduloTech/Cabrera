@@ -1,17 +1,24 @@
-// spi_device.sv
-// wrapper for spi_core and spi_byte_sm
-// and interface to counters
+/*
+ * Copyright (c) 2026 Zedulo Sweden AB
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/******************************************************
+|| Wraps spi_byte_sm and spi_core,
+|| cnt_idx picks register(s) 
+|| and muxes the addressed 32-bit word from counters_i
+******************************************************/
 
 module spi_device #(
-    parameter FLAT_COUNTER_REGISTERS = 96
+    parameter integer N_REGS = 5,
+	parameter integer FLAT_COUNTER_REGISTERS = (N_REGS * 32)
 )(
     input wire clk_i,
     input wire rst_ni,
 
     // spi pins
-    input wire cio_sck_i,
-    input wire cio_csb_i,
-    input wire cio_sd_i,
+    input wire  cio_sck_i,
+    input wire  cio_csb_i,
+    input wire  cio_sd_i,
     output wire cio_sd_o,
 
     // interface to counter signals
@@ -21,13 +28,18 @@ module spi_device #(
 );
 
     // signals
-    wire [7:0] rx_data;
-    wire [7:0] tx_data;
+    wire [7:0]  rx_data;
+    wire [7:0]  tx_data;
     wire        rx_valid;
     wire        tx_load;
     wire        cnt_rd_en;
     wire [31:0] current_cnt_val;
     wire        cio_csb_syned;
+    
+    // Counter selection 
+    assign current_cnt_val = (cnt_idx < N_REGS)
+                       ? counters_i[cnt_idx * 32 +: 32]
+                       : 32'h0000_0000;
 
     ///////////////////
     // Module instance
@@ -43,20 +55,20 @@ module spi_device #(
 
         .tx_data     (tx_data),
         .tx_load     (tx_load),
-        .rx_data      (rx_data),
+        .rx_data     (rx_data),
         .rx_valid    (rx_valid),
 
         .cio_csb_syned (cio_csb_syned)
     );
 
     spi_core s_core (
-        .clk_i      (clk_i),
-        .rst_ni     (rst_ni),
+        .clk_i         (clk_i),
+        .rst_ni        (rst_ni),
 
-        .tx_data     (tx_data),
-        .tx_load     (tx_load),
-        .rx_data      (rx_data),
-        .rx_valid    (rx_valid),
+        .tx_data       (tx_data),
+        .tx_load       (tx_load),
+        .rx_data       (rx_data),
+        .rx_valid      (rx_valid),
         .cio_csb_syned (cio_csb_syned),
 
         .cnt_idx        (cnt_idx),
@@ -64,8 +76,5 @@ module spi_device #(
         .cnt_rst_en     (cnt_rst_en),
         .cnt_val        (current_cnt_val)
     );
-
-    // counter selection 
-    assign current_cnt_val = counters_i[cnt_idx * 32 +: 32];
 
 endmodule

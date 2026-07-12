@@ -1,5 +1,15 @@
-// spi_core.sv
-// Handles 8-bit command + 32 bit data
+/*
+ * Copyright (c) 2026 Zedulo Sweden AB
+ * SPDX-License-Identifier: Apache-2.0
+ */
+ 
+/**************************************************************************
+//  The 8-bit command byte is decoded, then either;
+//  MSB is 1 for READ, 0 for CLEAR.
+//  Lower 4bits used for the register selection: cnt_idx[3:0]
+//  READ (is_read[7]=1), latches the 32-bit register value, does MSB-first
+//  CLEAR (is_read[7]=0), pulse signal to clear a particular register...
+***************************************************************************/
 
 module spi_core (
     input wire clk_i,

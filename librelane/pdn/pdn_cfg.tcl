@@ -202,6 +202,7 @@ add_pdn_connect \
     -grid macro \
     -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
 
+
 # Caravel macro
 #define_pdn_grid \
     #-macro \
@@ -215,6 +216,36 @@ add_pdn_connect \
     #-layers "Metal2 Metal3"
 
 #puts "$::env(SRAM_DEFINE)"
+### RING
+define_pdn_grid \
+    -macro \
+    -instances [list i_chip_core.u_ztimer.rosc3 i_chip_core.u_ztimer.rosc5 \
+                     i_chip_core.u_ztimer.rosc9 i_chip_core.u_ztimer.rosc27] \
+    -name rosc_macros \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid rosc_macros \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+# Local M4 straps landing on the macro's internal power-pin column
+# The global grid's M4 pitch is 153.6um
+#so a 40um macro can fall entirely between two stripes
+add_pdn_stripe \
+    -grid rosc_macros \
+    -layer Metal4 \
+    -width 1.60 \
+    -offset 20.56 \
+    -spacing 1.70 \
+    -pitch 40 \
+    -starts_with POWER \
+    -number_of_straps 1
+
+
+
+
+####
 if { [info exists ::env(SRAM_DEFINE)] } {
     if {$::env(SRAM_DEFINE) == "SRAM_gf180mcu_ocd_ip_sram"} {
         # Config for 3V3 SRAM

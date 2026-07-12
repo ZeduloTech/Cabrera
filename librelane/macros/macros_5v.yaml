@@ -98,20 +98,52 @@ MACROS:
         location: [500, 465] #500
         orientation: N
 
-  rosc_spi_bridge:
+  not_rosc3:
     gds:
-      - dir::../ztimer/final/gds/rosc_spi_bridge.gds.gz
+      - dir::../rosc3/final/gds/not_rosc3.gds.gz
     lef:
-      - dir::../ztimer/final/lef/rosc_spi_bridge.lef
+      - dir::../rosc3/final/lef/not_rosc3.lef
     vh:
-      - dir::../ztimer/final/vh/rosc_spi_bridge.vh
-    lib:
-      "*tt*" : [ dir::../ztimer/final/lib/nom_tt_025C_5v00/rosc_spi_bridge__nom_tt_025C_5v00.lib ]
-      "*ff*" : [ dir::../ztimer/final/lib/min_ff_n40C_5v50/rosc_spi_bridge__min_ff_n40C_5v50.lib ]
-      "*ss*" : [ dir::../ztimer/final/lib/max_ss_125C_4v50/rosc_spi_bridge__max_ss_125C_4v50.lib ]
+      - dir::../rosc3/final/vh/not_rosc3.vh
     instances:
-      i_chip_core.u_ztimer:
-        location: [490, 1515]
+      i_chip_core.u_ztimer.rosc3:
+        location: [500, 1492.15]
+        orientation: N
+
+  not_rosc5:
+    gds:
+      - dir::../rosc5/final/gds/not_rosc5.gds.gz
+    lef:
+      - dir::../rosc5/final/lef/not_rosc5.lef
+    vh:
+      - dir::../rosc5/final/vh/not_rosc5.vh
+    instances:
+      i_chip_core.u_ztimer.rosc5:
+        location: [580, 1492.15]
+        orientation: N
+
+  not_rosc9:
+    gds:
+      - dir::../rosc9/final/gds/not_rosc9.gds.gz
+    lef:
+      - dir::../rosc9/final/lef/not_rosc9.lef
+    vh:
+      - dir::../rosc9/final/vh/not_rosc9.vh
+    instances:
+      i_chip_core.u_ztimer.rosc9:
+        location: [500, 1592.15]
+        orientation: N
+
+  not_rosc27:
+    gds:
+      - dir::../rosc27/final/gds/not_rosc27.gds.gz
+    lef:
+      - dir::../rosc27/final/lef/not_rosc27.lef
+    vh:
+      - dir::../rosc27/final/vh/not_rosc27.vh
+    instances:
+      i_chip_core.u_ztimer.rosc27:
+        location: [580, 1592]
         orientation: N
 
   flash_ip:
@@ -165,6 +197,11 @@ MACROS:
 # This is an alternative method compared to
 # specifying the power connections in the RTL
 PDN_MACRO_CONNECTIONS:
+#- "i_chip_core.u_ztimer.rosc3 VDD VSS VDD VSS"
+#- "i_chip_core.u_ztimer.rosc5 VDD VSS VDD VSS"
+#- "i_chip_core.u_ztimer.rosc9 VDD VSS VDD VSS"
+#- "i_chip_core.u_ztimer.rosc27 VDD VSS VDD VSS"
+
 #- "i_chip_core.sram_0 VDD VSS VDD VSS"
 #- "i_chip_core.sram_1 VDD VSS VDD VSS"
 #- "i_chip_core.sram_2 VDD VSS VDD VSS"

@@ -1,5 +1,11 @@
-// spi_byte_sm.sv
-// this module shifts single-byte
+/*
+ * Copyright (c) 2026 Zedulo Sweden AB
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**************************************************
+// Shifts byte at MSB-first, Mode 0
+// Generates rx_valid and tx_load handshake pulses.
+****************************************************/
 
 module spi_byte_sm (
     input wire clk_i,
@@ -7,7 +13,7 @@ module spi_byte_sm (
 
     input wire cio_sck_i,
     input wire cio_csb_i,
-    input wire cio_sd_i,  //mosi
+    input wire cio_sd_i, //mosi
     output wire cio_sd_o, //miso
 
     input wire [7:0] tx_data, // byte to send

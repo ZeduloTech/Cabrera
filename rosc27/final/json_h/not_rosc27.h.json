@@ -1,0 +1,819 @@
+{
+  "creator": "Yosys 0.66 (git sha1 7f8fdfd8d7bc08c749a2a969388d3425d4f369d5, clang++ 21.1.2 -fPIC -O3)",
+  "modules": {
+    "not_rosc27": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "src/not_rosc27.sv:10.8"
+      },
+      "ports": {
+        "rosc_enable": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "rosc_out": {
+          "direction": "output",
+          "bits": [ 3 ]
+        }
+      },
+      "cells": {
+        "$0": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_rosc27.sv:20.22-20.55"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "1" ],
+            "B": [ 4 ],
+            "S": [ 2 ],
+            "Y": [ 5 ]
+          }
+        },
+        "$100": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 6 ],
+            "Y": [ 7 ]
+          }
+        },
+        "$104": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 7 ],
+            "Y": [ 3 ]
+          }
+        },
+        "$108": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 4 ]
+          }
+        },
+        "$12": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 8 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$16": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 9 ],
+            "Y": [ 10 ]
+          }
+        },
+        "$20": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 10 ],
+            "Y": [ 11 ]
+          }
+        },
+        "$24": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 11 ],
+            "Y": [ 12 ]
+          }
+        },
+        "$28": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 12 ],
+            "Y": [ 13 ]
+          }
+        },
+        "$32": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 13 ],
+            "Y": [ 14 ]
+          }
+        },
+        "$36": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 14 ],
+            "Y": [ 15 ]
+          }
+        },
+        "$4": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5 ],
+            "Y": [ 16 ]
+          }
+        },
+        "$40": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 15 ],
+            "Y": [ 17 ]
+          }
+        },
+        "$44": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 17 ],
+            "Y": [ 18 ]
+          }
+        },
+        "$48": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18 ],
+            "Y": [ 19 ]
+          }
+        },
+        "$52": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 19 ],
+            "Y": [ 20 ]
+          }
+        },
+        "$56": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 20 ],
+            "Y": [ 21 ]
+          }
+        },
+        "$60": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21 ],
+            "Y": [ 22 ]
+          }
+        },
+        "$64": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 22 ],
+            "Y": [ 23 ]
+          }
+        },
+        "$68": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 23 ],
+            "Y": [ 24 ]
+          }
+        },
+        "$72": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 24 ],
+            "Y": [ 25 ]
+          }
+        },
+        "$76": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 25 ],
+            "Y": [ 26 ]
+          }
+        },
+        "$8": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$80": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 26 ],
+            "Y": [ 27 ]
+          }
+        },
+        "$84": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 27 ],
+            "Y": [ 28 ]
+          }
+        },
+        "$88": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28 ],
+            "Y": [ 29 ]
+          }
+        },
+        "$92": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 29 ],
+            "Y": [ 30 ]
+          }
+        },
+        "$96": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "src/not_gate.sv:13.16-13.18"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 30 ],
+            "Y": [ 6 ]
+          }
+        }
+      },
+      "netnames": {
+        "inv[0].i": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "hdlname": "inv[0] i",
+            "src": "src/not_gate.sv:9.17"
+          }
+        },
+        "inv[0].o": {
+          "hide_name": 0,
+          "bits": [ 16 ],
+          "attributes": {
+            "hdlname": "inv[0] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[10].i": {
+          "hide_name": 0,
+          "bits": [ 17 ],
+          "attributes": {
+            "hdlname": "inv[10] i",
+            "src": "src/not_gate.sv:9.17"
+          }
+        },
+        "inv[10].o": {
+          "hide_name": 0,
+          "bits": [ 18 ],
+          "attributes": {
+            "hdlname": "inv[10] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[11].o": {
+          "hide_name": 0,
+          "bits": [ 19 ],
+          "attributes": {
+            "hdlname": "inv[11] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[12].o": {
+          "hide_name": 0,
+          "bits": [ 20 ],
+          "attributes": {
+            "hdlname": "inv[12] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[13].o": {
+          "hide_name": 0,
+          "bits": [ 21 ],
+          "attributes": {
+            "hdlname": "inv[13] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[14].o": {
+          "hide_name": 0,
+          "bits": [ 22 ],
+          "attributes": {
+            "hdlname": "inv[14] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[15].o": {
+          "hide_name": 0,
+          "bits": [ 23 ],
+          "attributes": {
+            "hdlname": "inv[15] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[16].o": {
+          "hide_name": 0,
+          "bits": [ 24 ],
+          "attributes": {
+            "hdlname": "inv[16] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[17].o": {
+          "hide_name": 0,
+          "bits": [ 25 ],
+          "attributes": {
+            "hdlname": "inv[17] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[18].o": {
+          "hide_name": 0,
+          "bits": [ 26 ],
+          "attributes": {
+            "hdlname": "inv[18] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[19].o": {
+          "hide_name": 0,
+          "bits": [ 27 ],
+          "attributes": {
+            "hdlname": "inv[19] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[1].o": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "hdlname": "inv[1] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[20].o": {
+          "hide_name": 0,
+          "bits": [ 28 ],
+          "attributes": {
+            "hdlname": "inv[20] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[21].o": {
+          "hide_name": 0,
+          "bits": [ 29 ],
+          "attributes": {
+            "hdlname": "inv[21] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[22].o": {
+          "hide_name": 0,
+          "bits": [ 30 ],
+          "attributes": {
+            "hdlname": "inv[22] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[23].o": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "hdlname": "inv[23] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[24].o": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "hdlname": "inv[24] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[26].o": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "hdlname": "inv[26] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[2].o": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "hdlname": "inv[2] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[3].o": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "hdlname": "inv[3] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[4].o": {
+          "hide_name": 0,
+          "bits": [ 11 ],
+          "attributes": {
+            "hdlname": "inv[4] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[5].o": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "hdlname": "inv[5] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[6].o": {
+          "hide_name": 0,
+          "bits": [ 13 ],
+          "attributes": {
+            "hdlname": "inv[6] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[7].o": {
+          "hide_name": 0,
+          "bits": [ 14 ],
+          "attributes": {
+            "hdlname": "inv[7] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "inv[8].o": {
+          "hide_name": 0,
+          "bits": [ 15 ],
+          "attributes": {
+            "hdlname": "inv[8] o",
+            "src": "src/not_gate.sv:10.17"
+          }
+        },
+        "rosc_enable": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "hdlname": "rosc_enable",
+            "src": "src/not_rosc27.sv:13.16"
+          }
+        },
+        "rosc_out": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "hdlname": "rosc_out",
+            "src": "src/not_rosc27.sv:14.14"
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,8 +15,8 @@ meta:
     Magic.DRC: null
     Checker.MagicDRC: null
     KLayout.XOR: null
-    #Netgen.LVS: null
-    #Checker.LVS: null
+    Netgen.LVS: null
+    Checker.LVS: null
     OpenROAD.IRDropReport: null
     
     Checker.YosysSynthChecks: null  # Fails due to multisources in PLL
@@ -28,6 +28,11 @@ VERILOG_FILES:
 - dir::../src/chip_core.sv
 - dir::../src/wb_reg.v
 - dir::../EthernetMac/src/liteeth_core.v
+- dir::../ztimer/src/clk_timer.sv
+- dir::../ztimer/src/spi_byte_sm.sv
+- dir::../ztimer/src/spi_core.sv
+- dir::../ztimer/src/spi_device.sv
+- dir::../ztimer/src/ztimer.sv
 
 VERILOG_INCLUDE_DIRS: [ dir::../caravel/verilog/ ]
 
