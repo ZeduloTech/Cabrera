@@ -41,6 +41,8 @@
 `define PAD_MII_TX_DAT1 32
 `define PAD_MII_TX_DAT2 33
 `define PAD_MII_TX_DAT3 34
+`define PADI_MII_SEL0    2
+`define PADI_MII_SEL1    3
 
 // 10BaseT PHY
 `define PAD_10BT_CLK        35

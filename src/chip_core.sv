@@ -112,30 +112,35 @@ module chip_core #(
     // MII: RST + TX_EN + TXD[3:0] are outputs; clocks + RX are inputs
     assign bidir_oe [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b1111_1_0000000_1;
     assign bidir_ie [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;
-    assign bidir_out[`PAD_MII_TX_CLK :`PAD_MII_RX_CLK] = '0;  //unused out on input pads tieed
+    // assign bidir_out[`PAD_MII_TX_CLK :`PAD_MII_RX_CLK] = '0;  //unused out on input pads tieed
     assign bidir_pu [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
     assign bidir_pd [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
     assign bidir_sl [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
     assign bidir_cs [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;  // Schmitt on inputs
 
     // MII & 10BaseT PHY
-    wire mii_rst_n;
+    wire mii_rst_n_mac;
+    wire mii_rx_clk_mac;
+    wire mii_tx_clk_mac;    
     wire mii_rx_clk;
     wire mii_tx_clk;
-    wire [3:0] mii_rx_data;
-    wire mii_rx_dv;
-    wire [3:0] mii_tx_data;
-    wire mii_tx_en;
+    wire [3:0] mii_rx_dat_mac;
+    wire mii_rx_dv_mac;
+    wire [3:0] mii_tx_dat_mac;
+    wire mii_tx_ena_mac;
 
     wire mii_rst_n_phy;
     wire mii_rx_clk_phy;
     wire mii_tx_clk_phy;
-    wire [3:0] mii_rx_data_phy;
+    wire [3:0] mii_rx_dat_phy;
     wire mii_rx_dv_phy;
-    wire [3:0] mii_tx_data_phy;
-    wire mii_tx_en_phy;
+    wire [3:0] mii_tx_dat_phy;
+    wire mii_tx_ena_phy;
 
-    wire phy_rst;
+    wire [3:0] mii_rx_dat_pado;
+    wire [3:0] mii_tx_dat_pado;
+
+    wire phy_rst_n;
     wire phy_clk_80;
 
     // assign mii_rst_n_phy    = mii_rst_n;
@@ -147,18 +152,6 @@ module chip_core #(
     // assign mii_rx_dv        = mii_rx_dv_phy;
     // assign mii_rx_data      = mii_rx_data_phy;
 
-    // assign bidir_out[`PAD_MII_RST]      = mii_rst_n;
-    // assign bidir_out[`PAD_MII_TX_EN]    = mii_tx_en;
-    // assign bidir_out[`PAD_MII_TX_DAT0]  = mii_tx_data[0];
-    // assign bidir_out[`PAD_MII_TX_DAT1]  = mii_tx_data[1];
-    // assign bidir_out[`PAD_MII_TX_DAT2]  = mii_tx_data[2];
-    // assign bidir_out[`PAD_MII_TX_DAT3]  = mii_tx_data[3];
-    
-    // assign mii_rx_clk   = bidir_in[`PAD_MII_RX_CLK];
-    // assign mii_tx_clk   = bidir_in[`PAD_MII_TX_CLK];
-    // assign mii_rx_dv    = bidir_in[`PAD_MII_RX_DV];
-    // assign mii_rx_data  = {bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]};
-    
     wb_reg wb_reg (
         .clk(user_wb_clk),
         .rst(user_wb_rst),
@@ -212,25 +205,51 @@ module chip_core #(
         .mii_tx_ena_phy(mii_tx_ena_phy),  
         .phy_reset_phy(phy_rst_n),  
 
-        .mii_rx_clk_pad(),
-        .mii_tx_clk_pad(),
-        .mii_rx_dat_pad(),
-        .mii_rx_dv_pad(),
-        .mii_tx_dat_pad(),
-        .mii_tx_ena_pad(),
-        .phy_reset_pad(),
+        .mii_rx_clk_pado(bidir_out[`PAD_MII_RX_CLK]),
+        .mii_tx_clk_pado(bidir_out[`PAD_MII_TX_CLK]),
+        .mii_rx_dat_pado(mii_rx_dat_pado),
+        .mii_rx_dv_pado(bidir_out[`PAD_MII_RX_DV]),
+        .mii_tx_dat_padi({bidir_in[`PAD_MII_TX_DAT3], bidir_in[`PAD_MII_TX_DAT2], bidir_in[`PAD_MII_TX_DAT1], bidir_in[`PAD_MII_TX_DAT0]}),
+        .mii_tx_ena_padi(bidir_in[`PAD_MII_TX_EN]),    
+        .phy_reset_padi(bidir_in[`PAD_MII_RST]), 
+
+        .mii_rx_clk_padi(bidir_in[`PAD_MII_RX_CLK]),
+        .mii_tx_clk_padi(bidir_in[`PAD_MII_TX_CLK]),
+        .mii_rx_dat_padi({bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]}),
+        .mii_rx_dv_padi(bidir_in[`PAD_MII_RX_DV]),
+        .mii_tx_dat_pado(mii_tx_dat_pado),
+        .mii_tx_ena_pado(bidir_out[`PAD_MII_TX_EN]),  
+        .phy_reset_pado(bidir_out[`PAD_MII_RST]),
         
-        .select
+        .select({input_in[`PADI_MII_SEL0], input_in[`PADI_MII_SEL1]})
     );
+
+    // assign bidir_out[`PAD_MII_RST]      = mii_rst_n;
+    // assign bidir_out[`PAD_MII_TX_EN]    = mii_tx_en;
+    assign bidir_out[`PAD_MII_TX_DAT0]  = mii_tx_dat_pado[0];
+    assign bidir_out[`PAD_MII_TX_DAT1]  = mii_tx_dat_pado[1];
+    assign bidir_out[`PAD_MII_TX_DAT2]  = mii_tx_dat_pado[2];
+    assign bidir_out[`PAD_MII_TX_DAT3]  = mii_tx_dat_pado[3];
+    
+    assign bidir_out[`PAD_MII_RX_DAT0]  = mii_rx_dat_pado[0];
+    assign bidir_out[`PAD_MII_RX_DAT1]  = mii_rx_dat_pado[1];
+    assign bidir_out[`PAD_MII_RX_DAT2]  = mii_rx_dat_pado[2];
+    assign bidir_out[`PAD_MII_RX_DAT3]  = mii_rx_dat_pado[3];
+    
+    // assign mii_rx_clk   = bidir_in[`PAD_MII_RX_CLK];
+    // assign mii_tx_clk   = bidir_in[`PAD_MII_TX_CLK];
+    // assign mii_rx_dv    = bidir_in[`PAD_MII_RX_DV];
+    // assign mii_rx_data  = {bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]};
+    
 
     liteeth_core eth_mac (
         .mii_clocks_rx(mii_rx_clk_mac),
         .mii_clocks_tx(mii_tx_clk_mac),
         .mii_rst_n(mii_rst_n_mac),
-        .mii_rx_data(mii_rx_data_mac),
+        .mii_rx_data(mii_rx_dat_mac),
         .mii_rx_dv(mii_rx_dv_mac),
-        .mii_tx_data(mii_tx_data_mac),
-        .mii_tx_en(mii_tx_en_mac),
+        .mii_tx_data(mii_tx_dat_mac),
+        .mii_tx_en(mii_tx_ena_mac),
         .sys_clock(user_wb_clk),
         .sys_reset(rst_n),
         .wishbone_ack(user_wb_reg_ack),
@@ -254,10 +273,10 @@ module chip_core #(
         .phy_clk_i(phy_clk_80),         // 80 MHz
         .mii_rx_clk_o(mii_rx_clk_phy),
         .mii_tx_clk_o(mii_tx_clk_phy),
-        .mii_rx_dat_o(mii_rx_data_phy),
+        .mii_rx_dat_o(mii_rx_dat_phy),
         .mii_rx_dv_o(mii_rx_dv_phy),
-        .mii_tx_dat_i(mii_tx_data_phy),
-        .mii_tx_ena_i(mii_tx_en_phy),
+        .mii_tx_dat_i(mii_tx_dat_phy),
+        .mii_tx_ena_i(mii_tx_ena_phy),
 
         .phy_cmos_rxp_i(bidir_in[`PAD_10BT_CMOS_RXP]),
         .phy_cmos_rxn_i(bidir_in[`PAD_10BT_CMOS_RXN]),

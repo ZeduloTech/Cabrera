@@ -27,6 +27,7 @@ VERILOG_FILES:
 - dir::../src/chip_top.sv
 - dir::../src/chip_core.sv
 - dir::../src/wb_reg.v
+- dir::../src/mii_mux.v
 - dir::../EthernetMac/src/liteeth_core.v
 - dir::../ztimer/src/clk_timer.sv
 - dir::../ztimer/src/spi_byte_sm.sv
