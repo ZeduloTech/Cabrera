@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2025 egorxe
+// SPDX-FileCopyrightText: © 2026 Zedulo
 // SPDX-License-Identifier: Apache-2.0
 
 `timescale 1 ns / 1 ps
@@ -91,34 +91,34 @@ module chip_core #(
     assign bidir_oe[`PAD_ZTIMER_SPI_HI:`PAD_ZTIMER_SPI_LO] = 4'b0001; // SDO output enabled
 
 
-/*
-    // set all other bidirs above the ztimer block to default zero
-    assign bidir_pu[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-    assign bidir_pd[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-    assign bidir_sl[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-    assign bidir_cs[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-    assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-    assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
-*/
-// Unused bidir pads: outputs off, inputs off, pulled down
-assign bidir_out[NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
-assign bidir_oe [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
-assign bidir_ie [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
-assign bidir_pu [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
-assign bidir_pd [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '1;
-assign bidir_sl [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
-assign bidir_cs [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    /*
+        // set all other bidirs above the ztimer block to default zero
+        assign bidir_pu[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+        assign bidir_pd[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+        assign bidir_sl[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+        assign bidir_cs[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+        assign bidir_ie[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+        assign bidir_oe[NUM_BIDIR_PADS-1:`PAD_ZTIMER_END+1] = '0;
+    */
+    // Unused bidir pads: outputs off, inputs off, pulled down
+    assign bidir_out[NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_oe [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_ie [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_pu [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_pd [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '1;
+    assign bidir_sl [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
+    assign bidir_cs [NUM_BIDIR_PADS-1:`PAD_MII_TX_DAT3+1] = '0;
 
-// MII: RST + TX_EN + TXD[3:0] are outputs; clocks + RX are inputs
-assign bidir_oe [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b1111_1_0000000_1;
-assign bidir_ie [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;
-assign bidir_out[`PAD_MII_TX_CLK :`PAD_MII_RX_CLK] = '0;  //unused out on input pads tieed
-assign bidir_pu [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
-assign bidir_pd [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
-assign bidir_sl [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
-assign bidir_cs [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;  // Schmitt on inputs
+    // MII: RST + TX_EN + TXD[3:0] are outputs; clocks + RX are inputs
+    assign bidir_oe [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b1111_1_0000000_1;
+    assign bidir_ie [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;
+    assign bidir_out[`PAD_MII_TX_CLK :`PAD_MII_RX_CLK] = '0;  //unused out on input pads tieed
+    assign bidir_pu [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
+    assign bidir_pd [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
+    assign bidir_sl [`PAD_MII_TX_DAT3:`PAD_MII_RST] = '0;
+    assign bidir_cs [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;  // Schmitt on inputs
 
-
+    // MII & 10BaseT PHY
     wire mii_rst_n;
     wire mii_rx_clk;
     wire mii_tx_clk;
@@ -127,17 +127,37 @@ assign bidir_cs [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;  // Schm
     wire [3:0] mii_tx_data;
     wire mii_tx_en;
 
-    assign bidir_out[`PAD_MII_RST]      = mii_rst_n;
-    assign bidir_out[`PAD_MII_TX_EN]    = mii_tx_en;
-    assign bidir_out[`PAD_MII_TX_DAT0]  = mii_tx_data[0];
-    assign bidir_out[`PAD_MII_TX_DAT1]  = mii_tx_data[1];
-    assign bidir_out[`PAD_MII_TX_DAT2]  = mii_tx_data[2];
-    assign bidir_out[`PAD_MII_TX_DAT3]  = mii_tx_data[3];
+    wire mii_rst_n_phy;
+    wire mii_rx_clk_phy;
+    wire mii_tx_clk_phy;
+    wire [3:0] mii_rx_data_phy;
+    wire mii_rx_dv_phy;
+    wire [3:0] mii_tx_data_phy;
+    wire mii_tx_en_phy;
+
+    wire phy_rst;
+    wire phy_clk_80;
+
+    assign mii_rst_n_phy    = mii_rst_n;
+    assign mii_tx_en_phy    = mii_tx_en;
+    assign mii_tx_data_phy  = mii_tx_data;
     
-    assign mii_rx_clk   = bidir_in[`PAD_MII_RX_CLK];
-    assign mii_tx_clk   = bidir_in[`PAD_MII_TX_CLK];
-    assign mii_rx_dv    = bidir_in[`PAD_MII_RX_DV];
-    assign mii_rx_data  = {bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]};
+    assign mii_rx_clk       = mii_rx_clk_phy;
+    assign mii_tx_clk       = mii_tx_clk_phy;
+    assign mii_rx_dv        = mii_rx_dv_phy;
+    assign mii_rx_data      = mii_rx_data_phy;
+
+    // assign bidir_out[`PAD_MII_RST]      = mii_rst_n;
+    // assign bidir_out[`PAD_MII_TX_EN]    = mii_tx_en;
+    // assign bidir_out[`PAD_MII_TX_DAT0]  = mii_tx_data[0];
+    // assign bidir_out[`PAD_MII_TX_DAT1]  = mii_tx_data[1];
+    // assign bidir_out[`PAD_MII_TX_DAT2]  = mii_tx_data[2];
+    // assign bidir_out[`PAD_MII_TX_DAT3]  = mii_tx_data[3];
+    
+    // assign mii_rx_clk   = bidir_in[`PAD_MII_RX_CLK];
+    // assign mii_tx_clk   = bidir_in[`PAD_MII_TX_CLK];
+    // assign mii_rx_dv    = bidir_in[`PAD_MII_RX_DV];
+    // assign mii_rx_data  = {bidir_in[`PAD_MII_RX_DAT3], bidir_in[`PAD_MII_RX_DAT2], bidir_in[`PAD_MII_RX_DAT1], bidir_in[`PAD_MII_RX_DAT0]};
     
     wb_reg wb_reg (
         .clk(user_wb_clk),
@@ -269,17 +289,37 @@ assign bidir_cs [`PAD_MII_TX_DAT3:`PAD_MII_RST] = 13'b0000_0_1111111_0;  // Schm
     assign caravel_start_mode = 1'b0;
 
     // 10Base-T PHY ip
-    (* keep *) tenbaset_tx_driver tenbaset_tx_driver (
-        .D0P(0),
-        .D0N(0),
-        .D1P(0),
-        .D1N(0),
-        .D2P(0),
-        .D2N(0),
+    assign phy_rst = ~mii_rst_n;
+    assign phy_clk_80 = bidir_in[`PAD_10BT_CLK];
 
-        .TXP_PADOUT(analog[6]),
-        .TXN_PADOUT(analog[7])
+    tenbaset_phy_top tenbaset_phy (
+        .phy_rst_i(phy_rst),
+        .phy_clk_i(phy_clk_80),         // 80 MHz
+        .mii_rx_clk_o(mii_rx_clk_phy),
+        .mii_tx_clk_o(mii_tx_clk_phy),
+        .mii_rx_dat_o(mii_rx_data_phy),
+        .mii_rx_dv_o(mii_rx_dv_phy),
+        .mii_tx_dat_i(mii_tx_data_phy),
+        .mii_tx_ena_i(mii_tx_en_phy),
+
+        .phy_cmos_rxp_i(bidir_in[`PAD_10BT_CMOS_RXP]),
+        .phy_cmos_rxn_i(bidir_in[`PAD_10BT_CMOS_RXN]),
+
+        .phy_txp_o(analog[`PADA_10BT_TXP]),
+        .phy_txn_o(analog[`PADA_10BT_TXN])
     );
+    
+    // (* keep *) tenbaset_tx_driver tenbaset_tx_driver (
+    //     .D0P(0),
+    //     .D0N(0),
+    //     .D1P(0),
+    //     .D1N(0),
+    //     .D2P(0),
+    //     .D2N(0),
+
+    //     .TXP_PADOUT(analog[6]),
+    //     .TXN_PADOUT(analog[7])
+    // );
 
     // flash ip
     (* keep *) flash_ip flash_ip ();

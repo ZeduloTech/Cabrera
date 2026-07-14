@@ -1,4 +1,5 @@
-// Caravel pad assignment
+// Cabrera pad assignment
+// PAD_x - bidir pads, PADI_x - inputs, PADA_x - analog
 
 `ifndef _PINOUT_VH
 `define _PINOUT_VH
@@ -21,11 +22,10 @@
 `define PADI_ZTIMER_START   0
 `define PADI_ZTIMER_STOP    1
  // markers
-`define PAD_ZTIMER_SPI_LO `PAD_ZTIMER_SDO
-`define PAD_ZTIMER_SPI_HI `PAD_ZTIMER_CSB
-`define PAD_ZTIMER_BEGIN `PAD_ZTIMER_SDO
-`define PAD_ZTIMER_END   `PAD_ZTIMER_CSB
-
+`define PAD_ZTIMER_SPI_LO   `PAD_ZTIMER_SDO
+`define PAD_ZTIMER_SPI_HI   `PAD_ZTIMER_CSB
+`define PAD_ZTIMER_BEGIN    `PAD_ZTIMER_SDO
+`define PAD_ZTIMER_END      `PAD_ZTIMER_CSB
 
 // MII
 `define PAD_MII_RST     22
@@ -41,5 +41,12 @@
 `define PAD_MII_TX_DAT1 32
 `define PAD_MII_TX_DAT2 33
 `define PAD_MII_TX_DAT3 34
+
+// 10BaseT PHY
+`define PAD_10BT_CLK        35
+`define PAD_10BT_CMOS_RXP   36
+`define PAD_10BT_CMOS_RXN   37
+`define PADA_10BT_TXP       6
+`define PADA_10BT_TXN       7
 
 `endif

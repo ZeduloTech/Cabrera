@@ -215,6 +215,22 @@ add_pdn_connect \
     #-grid caravel_macro \
     #-layers "Metal2 Metal3"
 
+# 10Baset macro
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.tenbaset_phy.tenbaset_tx_driver \
+    -name tenbaset_tx_driver \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid tenbaset_tx_driver \
+    -layers "Metal2 $::env(PDN_CORE_HORIZONTAL_LAYER)"
+
+#add_pdn_connect \
+    #-grid tenbaset_tx_driver \
+    #-layers "Metal2 $::env(PDN_HORIZONTAL_LAYER)"
+
 #puts "$::env(SRAM_DEFINE)"
 ### RING
 define_pdn_grid \
@@ -241,9 +257,6 @@ add_pdn_stripe \
     -pitch 40 \
     -starts_with POWER \
     -number_of_straps 1
-
-
-
 
 ####
 if { [info exists ::env(SRAM_DEFINE)] } {

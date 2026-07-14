@@ -1,15 +1,3 @@
-# 10Baset
-
-define_pdn_grid \
-    -macro \
-    -instances i_chip_core.tenbaset_tx_driver \
-    -name tenbaset_tx_driver \
-    -starts_with POWER \
-    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
-
-add_pdn_connect \
-    -grid tenbaset_tx_driver \
-    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
 # i commented above
 
 #add_pdn_connect \

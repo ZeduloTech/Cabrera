@@ -9,15 +9,15 @@ meta:
 
     # Save time during development
     # Enable for sign-off
-    KLayout.DRC: null
-    Checker.KLayoutDRC: null
+    #KLayout.DRC: null
+    #Checker.KLayoutDRC: null
     #OpenROAD.IRDropReport: null
-    Magic.DRC: null
-    Checker.MagicDRC: null
-    KLayout.XOR: null
-    Netgen.LVS: null
-    Checker.LVS: null
-    OpenROAD.IRDropReport: null
+    #Magic.DRC: null
+    #Checker.MagicDRC: null
+    #KLayout.XOR: null
+    #Netgen.LVS: null
+    #Checker.LVS: null
+    #OpenROAD.IRDropReport: null
     
     Checker.YosysSynthChecks: null  # Fails due to multisources in PLL
 
@@ -33,6 +33,9 @@ VERILOG_FILES:
 - dir::../ztimer/src/spi_core.sv
 - dir::../ztimer/src/spi_device.sv
 - dir::../ztimer/src/ztimer.sv
+- dir::../ip/tenbaset/tenbaset_phy_top.v
+- dir::../ip/tenbaset/tenbaset_tx.v
+- dir::../ip/tenbaset/tenbaset_rx.v
 
 VERILOG_INCLUDE_DIRS: [ dir::../caravel/verilog/ ]
 
