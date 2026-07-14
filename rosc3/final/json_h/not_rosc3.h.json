@@ -1,5 +1,5 @@
 {
-  "creator": "Yosys 0.66 (git sha1 7f8fdfd8d7bc08c749a2a969388d3425d4f369d5, clang++ 21.1.2 -fPIC -O3)",
+  "creator": "Yosys 0.54 (git sha1 db72ec3bde296a9512b2d1e6fabf81cfb07c2c1b, clang++ 19.1.7 -fPIC -O3)",
   "modules": {
     "not_rosc3": {
       "attributes": {
@@ -39,97 +39,83 @@
             "Y": [ 5 ]
           }
         },
-        "$12": {
-          "hide_name": 1,
-          "type": "$not",
+        "inv[0]": {
+          "hide_name": 0,
+          "type": "gf180mcu_fd_sc_mcu7t5v0__inv_1",
           "parameters": {
-            "A_SIGNED": "00000000000000000000000000000000",
-            "A_WIDTH": "00000000000000000000000000000001",
-            "Y_WIDTH": "00000000000000000000000000000001"
           },
           "attributes": {
-            "src": "src/not_gate.sv:13.16-13.18"
+            "dont_touch": "1",
+            "keep": "1",
+            "src": "src/not_rosc3.sv:32.57"
           },
           "port_directions": {
-            "A": "input",
-            "Y": "output"
+            "I": "input",
+            "ZN": "output"
           },
           "connections": {
-            "A": [ 3 ],
-            "Y": [ 4 ]
+            "I": [ 5 ],
+            "ZN": [ 6 ]
           }
         },
-        "$4": {
-          "hide_name": 1,
-          "type": "$not",
+        "inv[1]": {
+          "hide_name": 0,
+          "type": "gf180mcu_fd_sc_mcu7t5v0__inv_1",
           "parameters": {
-            "A_SIGNED": "00000000000000000000000000000000",
-            "A_WIDTH": "00000000000000000000000000000001",
-            "Y_WIDTH": "00000000000000000000000000000001"
           },
           "attributes": {
-            "src": "src/not_gate.sv:13.16-13.18"
+            "dont_touch": "1",
+            "keep": "1",
+            "src": "src/not_rosc3.sv:32.57"
           },
           "port_directions": {
-            "A": "input",
-            "Y": "output"
+            "I": "input",
+            "ZN": "output"
           },
           "connections": {
-            "A": [ 5 ],
-            "Y": [ 6 ]
+            "I": [ 6 ],
+            "ZN": [ 3 ]
           }
         },
-        "$8": {
-          "hide_name": 1,
-          "type": "$not",
+        "inv[2]": {
+          "hide_name": 0,
+          "type": "gf180mcu_fd_sc_mcu7t5v0__inv_1",
           "parameters": {
-            "A_SIGNED": "00000000000000000000000000000000",
-            "A_WIDTH": "00000000000000000000000000000001",
-            "Y_WIDTH": "00000000000000000000000000000001"
           },
           "attributes": {
-            "src": "src/not_gate.sv:13.16-13.18"
+            "dont_touch": "1",
+            "keep": "1",
+            "src": "src/not_rosc3.sv:32.57"
           },
           "port_directions": {
-            "A": "input",
-            "Y": "output"
+            "I": "input",
+            "ZN": "output"
           },
           "connections": {
-            "A": [ 6 ],
-            "Y": [ 3 ]
+            "I": [ 3 ],
+            "ZN": [ 4 ]
           }
         }
       },
       "netnames": {
-        "inv[0].i": {
+        "inv_in": {
           "hide_name": 0,
-          "bits": [ 5 ],
+          "bits": [ 5, 6, 3 ],
           "attributes": {
-            "hdlname": "inv[0] i",
-            "src": "src/not_gate.sv:9.17"
+            "src": "src/not_rosc3.sv:17.16"
           }
         },
-        "inv[0].o": {
+        "inv_out": {
           "hide_name": 0,
-          "bits": [ 6 ],
+          "bits": [ 6, 3, 4 ],
           "attributes": {
-            "hdlname": "inv[0] o",
-            "src": "src/not_gate.sv:10.17"
-          }
-        },
-        "inv[2].o": {
-          "hide_name": 0,
-          "bits": [ 4 ],
-          "attributes": {
-            "hdlname": "inv[2] o",
-            "src": "src/not_gate.sv:10.17"
+            "src": "src/not_rosc3.sv:18.16"
           }
         },
         "rosc_enable": {
           "hide_name": 0,
           "bits": [ 2 ],
           "attributes": {
-            "hdlname": "rosc_enable",
             "src": "src/not_rosc3.sv:13.16"
           }
         },
@@ -137,7 +123,6 @@
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "hdlname": "rosc_out",
             "src": "src/not_rosc3.sv:14.14"
           }
         }

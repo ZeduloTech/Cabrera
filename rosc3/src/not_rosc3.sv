@@ -22,9 +22,9 @@ module not_rosc3 #(
 
   assign rosc_out = inv_in[N-1];
 
-  not_gate inv[N-1:0] (
-      .i (inv_in),
-      .o (inv_out)
+  (* keep, dont_touch *) gf180mcu_fd_sc_mcu7t5v0__inv_1 inv[N-1:0]( 
+      .I  (inv_in), 
+      .ZN (inv_out) 
   );
     
 endmodule

@@ -1,7 +1,7 @@
 (DELAYFILE
  (SDFVERSION "3.0")
  (DESIGN "not_rosc9")
- (DATE "Sat Jul 11 20:00:22 2026")
+ (DATE "Tue Jul 14 11:02:27 2026")
  (VENDOR "Parallax")
  (PROGRAM "STA")
  (VERSION "2.7.0")
@@ -12,29 +12,119 @@
   (INSTANCE)
   (DELAY
    (ABSOLUTE
-    (INTERCONNECT rosc_enable _0_.A1 (0.044:0.044:0.044) (0.027:0.027:0.027))
-    (INTERCONNECT _0_.ZN _0_.A2 (0.000:0.000:0.000))
-    (INTERCONNECT _0_.ZN wire1.I (0.000:0.000:0.000))
-    (INTERCONNECT wire1.Z rosc_out (0.001:0.001:0.001) (0.001:0.001:0.001))
+    (INTERCONNECT rosc_enable _2_.A2 (0.044:0.044:0.044) (0.027:0.027:0.027))
+    (INTERCONNECT _1_.ZN _2_.A1 (0.000:0.000:0.000))
+    (INTERCONNECT _2_.ZN inv\[0\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[0\].ZN inv\[1\].I (0.000:0.000:0.000) (0.000:0.000:0.000))
+    (INTERCONNECT inv\[1\].ZN inv\[2\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[2\].ZN inv\[3\].I (0.000:0.000:0.000) (0.000:0.000:0.000))
+    (INTERCONNECT inv\[3\].ZN inv\[4\].I (0.000:0.000:0.000) (0.000:0.000:0.000))
+    (INTERCONNECT inv\[4\].ZN inv\[5\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[5\].ZN inv\[6\].I (0.000:0.000:0.000) (0.000:0.000:0.000))
+    (INTERCONNECT inv\[6\].ZN inv\[7\].I (0.000:0.000:0.000) (0.000:0.000:0.000))
+    (INTERCONNECT inv\[7\].ZN inv\[8\].I (0.001:0.001:0.001) (0.001:0.001:0.001))
+    (INTERCONNECT inv\[7\].ZN rosc_out (0.001:0.001:0.001) (0.001:0.001:0.001))
+    (INTERCONNECT inv\[8\].ZN _1_.I (0.000:0.000:0.000))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkinv_1")
+  (INSTANCE _1_)
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.101:0.101:0.101) (0.086:0.086:0.086))
    )
   )
  )
  (CELL
   (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__nand2_1")
-  (INSTANCE _0_)
+  (INSTANCE _2_)
   (DELAY
    (ABSOLUTE
-    (IOPATH A1 ZN (0.117:0.117:0.117) (0.104:0.104:0.104))
-    (IOPATH A2 ZN (0.000:0.000:0.000))
+    (IOPATH A1 ZN (0.000:0.000:0.000))
+    (IOPATH A2 ZN (0.090:0.090:0.090) (0.072:0.072:0.072))
    )
   )
  )
  (CELL
-  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkbuf_3")
-  (INSTANCE wire1)
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[0\])
   (DELAY
    (ABSOLUTE
-    (IOPATH I Z (0.284:0.284:0.284) (0.282:0.282:0.282))
+    (IOPATH I ZN (0.083:0.083:0.083) (0.059:0.059:0.059))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[1\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.077:0.077:0.077) (0.055:0.055:0.055))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[2\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.078:0.078:0.078) (0.057:0.057:0.057))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[3\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.077:0.077:0.077) (0.057:0.057:0.057))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[4\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.074:0.074:0.074) (0.054:0.054:0.054))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[5\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.072:0.072:0.072) (0.053:0.053:0.053))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[6\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.076:0.076:0.076) (0.056:0.056:0.056))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[7\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.551:0.551:0.551) (0.359:0.359:0.359))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[8\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.188:0.188:0.188) (0.044:0.044:0.044))
    )
   )
  )

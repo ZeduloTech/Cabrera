@@ -6,17 +6,17 @@ MACRO not_rosc3
   CLASS BLOCK ;
   FOREIGN not_rosc3 ;
   ORIGIN 0.000 0.000 ;
-  SIZE 40.000 BY 40.000 ;
+  SIZE 50.000 BY 50.000 ;
   PIN VDD
     DIRECTION INOUT ;
     USE POWER ;
     PORT
       LAYER Metal4 ;
-        RECT 20.560 7.540 22.160 31.660 ;
+        RECT 25.600 11.460 27.200 39.500 ;
     END
     PORT
       LAYER Metal5 ;
-        RECT 5.040 23.690 34.720 25.290 ;
+        RECT 10.080 27.610 39.760 29.210 ;
     END
   END VDD
   PIN VSS
@@ -24,11 +24,11 @@ MACRO not_rosc3
     USE GROUND ;
     PORT
       LAYER Metal4 ;
-        RECT 23.860 7.540 25.460 31.660 ;
+        RECT 28.900 11.460 30.500 39.500 ;
     END
     PORT
       LAYER Metal5 ;
-        RECT 5.040 26.990 34.720 28.590 ;
+        RECT 10.080 30.910 39.760 32.510 ;
     END
   END VSS
   PIN rosc_enable
@@ -36,43 +36,33 @@ MACRO not_rosc3
     USE SIGNAL ;
     ANTENNAGATEAREA 1.057000 ;
     PORT
-      LAYER Metal2 ;
-        RECT 19.040 0.000 19.600 0.560 ;
+      LAYER Metal3 ;
+        RECT 0.000 25.760 0.560 26.320 ;
     END
   END rosc_enable
   PIN rosc_out
     DIRECTION OUTPUT ;
     USE SIGNAL ;
-    ANTENNADIFFAREA 1.986000 ;
+    ANTENNAGATEAREA 1.102000 ;
+    ANTENNADIFFAREA 0.897600 ;
     PORT
       LAYER Metal2 ;
-        RECT 17.920 0.000 18.480 0.560 ;
+        RECT 24.640 49.440 25.200 50.000 ;
     END
   END rosc_out
   OBS
-      LAYER Pwell ;
-        RECT 4.610 29.600 35.150 31.790 ;
       LAYER Nwell ;
-        RECT 4.610 25.280 35.150 29.600 ;
-      LAYER Pwell ;
-        RECT 4.610 21.760 35.150 25.280 ;
-      LAYER Nwell ;
-        RECT 4.610 17.440 35.150 21.760 ;
-      LAYER Pwell ;
-        RECT 4.610 13.920 35.150 17.440 ;
-      LAYER Nwell ;
-        RECT 4.610 9.600 35.150 13.920 ;
-      LAYER Pwell ;
-        RECT 4.610 7.410 35.150 9.600 ;
+        RECT 9.650 11.330 40.190 39.630 ;
       LAYER Metal1 ;
-        RECT 5.040 7.540 34.720 31.660 ;
+        RECT 10.080 11.460 39.760 39.500 ;
       LAYER Metal2 ;
-        RECT 18.060 0.860 25.320 31.550 ;
-        RECT 19.900 0.560 25.320 0.860 ;
+        RECT 20.860 49.140 24.340 49.440 ;
+        RECT 25.500 49.140 30.360 49.440 ;
+        RECT 20.860 11.570 30.360 49.140 ;
       LAYER Metal3 ;
-        RECT 18.570 1.820 25.370 31.500 ;
-      LAYER Metal4 ;
-        RECT 19.180 1.770 19.460 14.470 ;
+        RECT 0.560 26.620 30.410 39.340 ;
+        RECT 0.860 25.460 30.410 26.620 ;
+        RECT 0.560 11.620 30.410 25.460 ;
   END
 END not_rosc3
 END LIBRARY

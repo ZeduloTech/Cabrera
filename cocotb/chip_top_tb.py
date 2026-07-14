@@ -103,6 +103,12 @@ def test_chip_top_runner(test : str):
         sources.append(proj_path / "../caravel/final/pnl/caravel_core.pnl.v")
         sources.append(proj_path / "../final/pnl/chip_top.pnl.v")
 
+        sources.append(proj_path / "../rosc3/final/pnl/not_rosc3.pnl.v")
+        sources.append(proj_path / "../rosc5/final/pnl/not_rosc5.pnl.v")
+        sources.append(proj_path / "../rosc9/final/pnl/not_rosc9.pnl.v")
+        sources.append(proj_path / "../rosc27/final/pnl/not_rosc27.pnl.v")
+
+
         defines.update({"GL" : 1, "USE_POWER_PINS": 1})
         if sdf:
             defines.update({"ENABLE_SDF" : 1})
@@ -113,6 +119,9 @@ def test_chip_top_runner(test : str):
 
         sources += (proj_path / "../caravel/verilog/").glob("*.v")
 
+	# Timer IP
+        sources += (proj_path / "../ztimer/src/").glob("*.sv")
+ 
         defines.update({"SLOT_1X1" : 1, "FUNCTIONAL": 1})
 
     includes.append(proj_path / "../src")
