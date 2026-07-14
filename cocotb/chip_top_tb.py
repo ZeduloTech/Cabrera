@@ -19,6 +19,7 @@ sim = os.getenv("SIM", "icarus")
 pdk_root = os.getenv("PDK_ROOT", Path("../gf180mcu").absolute())
 pdk = os.getenv("PDK", "gf180mcuD")
 scl = os.getenv("SCL", "gf180mcu_fd_sc_mcu7t5v0")
+pad = os.getenv("PAD", "gf180mcu_fd_io")
 gl = os.getenv("GL", False)
 sdf = os.getenv("SDF", False)
 test_env = os.getenv("TEST", "all")
@@ -103,6 +104,12 @@ def test_chip_top_runner(test : str):
         sources.append(proj_path / "../caravel/final/pnl/caravel_core.pnl.v")
         sources.append(proj_path / "../final/pnl/chip_top.pnl.v")
 
+        sources.append(proj_path / "../rosc3/final/pnl/not_rosc3.pnl.v")
+        sources.append(proj_path / "../rosc5/final/pnl/not_rosc5.pnl.v")
+        sources.append(proj_path / "../rosc9/final/pnl/not_rosc9.pnl.v")
+        sources.append(proj_path / "../rosc27/final/pnl/not_rosc27.pnl.v")
+
+
         defines.update({"GL" : 1, "USE_POWER_PINS": 1})
         if sdf:
             defines.update({"ENABLE_SDF" : 1})
@@ -110,9 +117,18 @@ def test_chip_top_runner(test : str):
         sources.append(proj_path / "../src/chip_top.sv")
         sources.append(proj_path / "../src/chip_core.sv")
         sources.append(proj_path / "../src/wb_counter.v")
+        sources.append(proj_path / "../src/wb_reg.v")
+        sources.append(proj_path / "../EthernetMac/src/liteeth_core.v")
 
         sources += (proj_path / "../caravel/verilog/").glob("*.v")
 
+	# Timer IP
+        sources += (proj_path / "../ztimer/src/").glob("*.sv")
+        sources.append(proj_path / "../rosc3/src/not_rosc3.sv")
+        sources.append(proj_path / "../rosc5/src/not_rosc5.sv")
+        sources.append(proj_path / "../rosc9/src/not_rosc9.sv")
+        sources.append(proj_path / "../rosc27/src/not_rosc27.sv")
+ 
         defines.update({"SLOT_1X1" : 1, "FUNCTIONAL": 1})
 
     includes.append(proj_path / "../src")
@@ -121,19 +137,28 @@ def test_chip_top_runner(test : str):
 
     sources += [
         # IO pad models
-        Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_io/verilog/gf180mcu_fd_io.v",
-        Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_io/verilog/gf180mcu_ws_io.v",
-        
+        #Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_io/verilog/gf180mcu_fd_io.v",
+        #Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_io/verilog/gf180mcu_ws_io.v",
+        Path(pdk_root) / pdk / f"libs.ref/{pad}/verilog/{pad}.v",
+
         # SRAM macros
-        Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_ip_sram/verilog/gf180mcu_fd_ip_sram__sram512x8m8wm1.v",
+        #Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_ip_sram/verilog/gf180mcu_fd_ip_sram__sram512x8m8wm1.v",
+        #proj_path / "../ip/sram/gf180_ram_512x8_wrapper.v",
+        Path(pdk_root) / pdk / "libs.ref/gf180mcu_fd_ip_sram/verilog/gf180mcu_fd_ip_sram__sram256x8m8wm1.v",
         proj_path / "../ip/sram/gf180_ram_512x8_wrapper.v",
 
         # Caravel IP
         proj_path / "../ip/simple_por/verilog/simple_por.v",
         
         # Custom IP
-        proj_path / "../ip/gf180mcu_ws_ip__id/vh/gf180mcu_ws_ip__id.v",
+        #proj_path / "../ip/gf180mcu_ws_ip__id/vh/gf180mcu_ws_ip__id.v",
+        #proj_path / "../ip/gf180mcu_ws_ip__logo/vh/gf180mcu_ws_ip__logo.v",
+        proj_path / "../ip/gf180mcu_ws_ip__project_id/vh/gf180mcu_ws_ip__project_id.v",
+        proj_path / "../ip/gf180mcu_ws_ip__qrcode_id/vh/gf180mcu_ws_ip__qrcode_id.v",
+        proj_path / "../ip/gf180mcu_ws_ip__shuttle_id/vh/gf180mcu_ws_ip__shuttle_id.v",
         proj_path / "../ip/gf180mcu_ws_ip__logo/vh/gf180mcu_ws_ip__logo.v",
+        proj_path / "../ip/gf180mcu_ws_ip__marker/vh/gf180mcu_ws_ip__marker.v",
+        proj_path / "../ip/flash_ip/vh/Flash_SPI.v",
     ]
 
     build_args = []

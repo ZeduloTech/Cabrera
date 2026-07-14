@@ -1,7 +1,7 @@
 (DELAYFILE
  (SDFVERSION "3.0")
  (DESIGN "not_rosc3")
- (DATE "Sat Jul 11 19:58:38 2026")
+ (DATE "Tue Jul 14 10:31:19 2026")
  (VENDOR "Parallax")
  (PROGRAM "STA")
  (VERSION "2.7.0")
@@ -12,29 +12,59 @@
   (INSTANCE)
   (DELAY
    (ABSOLUTE
-    (INTERCONNECT rosc_enable _0_.A1 (0.063:0.063:0.063) (0.039:0.039:0.039))
-    (INTERCONNECT _0_.ZN _0_.A2 (0.000:0.000:0.000))
-    (INTERCONNECT _0_.ZN wire1.I (0.000:0.000:0.000))
-    (INTERCONNECT wire1.Z rosc_out (0.001:0.001:0.001) (0.001:0.001:0.001))
+    (INTERCONNECT rosc_enable _2_.A2 (0.060:0.060:0.060) (0.037:0.037:0.037))
+    (INTERCONNECT _1_.ZN _2_.A1 (0.000:0.000:0.000))
+    (INTERCONNECT _2_.ZN inv\[0\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[0\].ZN inv\[1\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[1\].ZN inv\[2\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[1\].ZN rosc_out (0.001:0.001:0.001))
+    (INTERCONNECT inv\[2\].ZN _1_.I (0.000:0.000:0.000))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkinv_1")
+  (INSTANCE _1_)
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.152:0.152:0.152) (0.130:0.130:0.130))
    )
   )
  )
  (CELL
   (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__nand2_1")
-  (INSTANCE _0_)
+  (INSTANCE _2_)
   (DELAY
    (ABSOLUTE
-    (IOPATH A1 ZN (0.177:0.177:0.177) (0.163:0.163:0.163))
-    (IOPATH A2 ZN (0.000:0.000:0.000))
+    (IOPATH A1 ZN (0.000:0.000:0.000))
+    (IOPATH A2 ZN (0.146:0.146:0.146) (0.121:0.121:0.121))
    )
   )
  )
  (CELL
-  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkbuf_3")
-  (INSTANCE wire1)
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[0\])
   (DELAY
    (ABSOLUTE
-    (IOPATH I Z (0.433:0.433:0.433) (0.441:0.441:0.441))
+    (IOPATH I ZN (0.122:0.122:0.122) (0.085:0.085:0.085))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[1\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.807:0.807:0.807) (0.524:0.524:0.524))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[2\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.273:0.273:0.273) (0.069:0.069:0.069))
    )
   )
  )

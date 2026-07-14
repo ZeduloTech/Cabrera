@@ -11,7 +11,6 @@ meta:
 
 DESIGN_NAME: not_rosc27
 VERILOG_FILES:
-- dir::../src/not_gate.sv
 - dir::../src/not_rosc27.sv
 
 # Slightly smaller file sizes
@@ -41,8 +40,8 @@ FP_SIZING: absolute
 #DIE_AREA: [0, 0, 750, 750]
 #CORE_AREA: [50, 50, 700, 700]
 
-DIE_AREA: [0, 0, 40, 40]
-CORE_AREA: [5, 5, 35, 35]
+DIE_AREA: [0, 0, 50, 50]
+CORE_AREA: [10, 10, 40, 40]
 ############################### Placement ############################## 
 
 PL_TARGET_DENSITY_PCT: 70 #55

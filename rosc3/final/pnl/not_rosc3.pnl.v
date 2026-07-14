@@ -7,13 +7,79 @@ module not_rosc3 (rosc_enable,
  inout VDD;
  inout VSS;
 
- wire net1;
+ wire _0_;
+ wire \inv_in[0] ;
+ wire \inv_in[1] ;
+ wire \inv_out[2] ;
 
- gf180mcu_fd_sc_mcu7t5v0__fill_2 FILLER_0_18 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__clkinv_1 _1_ (.I(\inv_out[2] ),
+    .ZN(_0_),
+    .VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_0_2 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__nand2_1 _2_ (.A1(_0_),
+    .A2(rosc_enable),
+    .ZN(\inv_in[0] ),
+    .VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__inv_1 \inv[0]  (.I(\inv_in[0] ),
+    .ZN(\inv_in[1] ),
+    .VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__inv_1 \inv[1]  (.I(\inv_in[1] ),
+    .ZN(rosc_out),
+    .VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__inv_1 \inv[2]  (.I(rosc_out),
+    .ZN(\inv_out[2] ),
+    .VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_0_Right_0 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_1_Right_1 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_2_Right_2 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_3_Right_3 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_4_Right_4 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_5_Right_5 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_6_Right_6 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_0_Left_7 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_1_Left_8 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_2_Left_9 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_3_Left_10 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_4_Left_11 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_5_Left_12 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_6_Left_13 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_0_14 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_2_15 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_4_16 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_6_17 (.VDD(VDD),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_32 FILLER_0_2 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
@@ -33,19 +99,15 @@ module not_rosc3 (rosc_enable,
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_4 FILLER_1_18 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_32 FILLER_1_2 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_1_2 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_1_34 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_1_27 (.VDD(VDD),
-    .VNW(VDD),
-    .VPW(VSS),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_8 FILLER_1_43 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fill_1 FILLER_1_50 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
@@ -69,23 +131,27 @@ module not_rosc3 (rosc_enable,
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_32 FILLER_3_2 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_3_2 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_3_34 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_3_27 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fill_1 FILLER_3_50 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_8 FILLER_3_43 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_32 FILLER_4_2 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_4_2 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fill_1 FILLER_4_34 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fill_1 FILLER_4_18 (.VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_4 FILLER_4_31 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
@@ -105,15 +171,7 @@ module not_rosc3 (rosc_enable,
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_8 FILLER_5_36 (.VDD(VDD),
-    .VNW(VDD),
-    .VPW(VSS),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fillcap_4 FILLER_5_44 (.VDD(VDD),
-    .VNW(VDD),
-    .VPW(VSS),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__fill_2 FILLER_5_48 (.VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_16 FILLER_5_34 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
@@ -121,48 +179,23 @@ module not_rosc3 (rosc_enable,
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_0_Left_6 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_0_Right_0 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_1_Left_7 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_1_Right_1 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_2_Left_8 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_2_Right_2 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_3_Left_9 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_3_Right_3 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_4_Left_10 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_4_Right_4 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_5_Left_11 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__endcap PHY_EDGE_ROW_5_Right_5 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_0_12 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_2_13 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_4_14 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__filltie TAP_TAPCELL_ROW_5_15 (.VDD(VDD),
-    .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__nand2_1 _0_ (.A1(rosc_enable),
-    .A2(net1),
-    .ZN(net1),
-    .VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_32 FILLER_6_2 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));
- gf180mcu_fd_sc_mcu7t5v0__clkbuf_3 wire1 (.I(net1),
-    .Z(rosc_out),
-    .VDD(VDD),
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_8 FILLER_6_36 (.VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__fillcap_4 FILLER_6_44 (.VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__fill_2 FILLER_6_48 (.VDD(VDD),
+    .VNW(VDD),
+    .VPW(VSS),
+    .VSS(VSS));
+ gf180mcu_fd_sc_mcu7t5v0__fill_1 FILLER_6_50 (.VDD(VDD),
     .VNW(VDD),
     .VPW(VSS),
     .VSS(VSS));

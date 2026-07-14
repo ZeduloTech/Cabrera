@@ -1,7 +1,7 @@
 (DELAYFILE
  (SDFVERSION "3.0")
  (DESIGN "not_rosc3")
- (DATE "Sat Jul 11 19:58:38 2026")
+ (DATE "Tue Jul 14 10:31:19 2026")
  (VENDOR "Parallax")
  (PROGRAM "STA")
  (VERSION "2.7.0")
@@ -12,29 +12,59 @@
   (INSTANCE)
   (DELAY
    (ABSOLUTE
-    (INTERCONNECT rosc_enable _0_.A1 (0.065:0.065:0.065) (0.040:0.040:0.040))
-    (INTERCONNECT _0_.ZN _0_.A2 (0.000:0.000:0.000))
-    (INTERCONNECT _0_.ZN wire1.I (0.000:0.000:0.000))
-    (INTERCONNECT wire1.Z rosc_out (0.001:0.001:0.001) (0.001:0.001:0.001))
+    (INTERCONNECT rosc_enable _2_.A2 (0.061:0.061:0.061) (0.038:0.038:0.038))
+    (INTERCONNECT _1_.ZN _2_.A1 (0.000:0.000:0.000))
+    (INTERCONNECT _2_.ZN inv\[0\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[0\].ZN inv\[1\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[1\].ZN inv\[2\].I (0.000:0.000:0.000))
+    (INTERCONNECT inv\[1\].ZN rosc_out (0.001:0.001:0.001) (0.001:0.001:0.001))
+    (INTERCONNECT inv\[2\].ZN _1_.I (0.000:0.000:0.000))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkinv_1")
+  (INSTANCE _1_)
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.152:0.152:0.152) (0.131:0.131:0.131))
    )
   )
  )
  (CELL
   (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__nand2_1")
-  (INSTANCE _0_)
+  (INSTANCE _2_)
   (DELAY
    (ABSOLUTE
-    (IOPATH A1 ZN (0.179:0.179:0.179) (0.165:0.165:0.165))
-    (IOPATH A2 ZN (0.000:0.000:0.000))
+    (IOPATH A1 ZN (0.000:0.000:0.000))
+    (IOPATH A2 ZN (0.148:0.148:0.148) (0.123:0.123:0.123))
    )
   )
  )
  (CELL
-  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__clkbuf_3")
-  (INSTANCE wire1)
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[0\])
   (DELAY
    (ABSOLUTE
-    (IOPATH I Z (0.434:0.434:0.434) (0.442:0.442:0.442))
+    (IOPATH I ZN (0.123:0.123:0.123) (0.086:0.086:0.086))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[1\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.810:0.810:0.810) (0.526:0.526:0.526))
+   )
+  )
+ )
+ (CELL
+  (CELLTYPE "gf180mcu_fd_sc_mcu7t5v0__inv_1")
+  (INSTANCE inv\[2\])
+  (DELAY
+   (ABSOLUTE
+    (IOPATH I ZN (0.275:0.275:0.275) (0.071:0.071:0.071))
    )
   )
  )
