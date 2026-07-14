@@ -69,11 +69,19 @@ if {$hierarchical_sta} {
         [expr $caravel_in_min_delay + $delta] [expr $caravel_period - $caravel_in_max_delay + $delta]
 }
 
-###################### 10BaseT CONSTRAINTS ############################# 
+###################### TIMER CONSTRAINTS ############################### 
 
-create_clock i_chip_core.tenbaset_phy.phy_clk_buf/Z -name tenbaset_phy_clk -period 12.5
-# create_clock [get_port bidir_PAD\[23\]] -name mii_rx_clk -period 400
-# create_clock [get_port bidir_PAD\[29\]] -name mii_tx_clk -period 400
+create_clock [get_pin i_chip_core.u_ztimer.clk_buf/Z] -name ztimer_clk -period 20
+create_clock [get_pin i_chip_core.u_ztimer.clk_buf_rosc3/Z] -name rosc3_clk -period 7
+create_clock [get_pin i_chip_core.u_ztimer.clk_buf_rosc5/Z] -name rosc5_clk -period 7
+create_clock [get_pin i_chip_core.u_ztimer.clk_buf_rosc9/Z] -name rosc9_clk -period 7
+create_clock [get_pin i_chip_core.u_ztimer.clk_buf_rosc27/Z] -name rosc27_clk -period 7
+
+###################### 10BASET CONSTRAINTS ############################# 
+
+create_clock [get_pin i_chip_core.tenbaset_phy.phy_clk_buf/Z] -name tenbaset_phy_clk -period 12.5
+create_clock [get_pin i_chip_core.mii_rx_clk_buf/Z] -name mii_rx_clk -period 40
+create_clock [get_pin i_chip_core.mii_tx_clk_buf/Z] -name mii_tx_clk -period 40
 
 ###################### GENERAL CONSTRAINTS ############################# 
 

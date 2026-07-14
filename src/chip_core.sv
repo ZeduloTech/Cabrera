@@ -138,14 +138,14 @@ module chip_core #(
     wire phy_rst;
     wire phy_clk_80;
 
-    assign mii_rst_n_phy    = mii_rst_n;
-    assign mii_tx_en_phy    = mii_tx_en;
-    assign mii_tx_data_phy  = mii_tx_data;
+    // assign mii_rst_n_phy    = mii_rst_n;
+    // assign mii_tx_en_phy    = mii_tx_en;
+    // assign mii_tx_data_phy  = mii_tx_data;
     
-    assign mii_rx_clk       = mii_rx_clk_phy;
-    assign mii_tx_clk       = mii_tx_clk_phy;
-    assign mii_rx_dv        = mii_rx_dv_phy;
-    assign mii_rx_data      = mii_rx_data_phy;
+    // assign mii_rx_clk       = mii_rx_clk_phy;
+    // assign mii_tx_clk       = mii_tx_clk_phy;
+    // assign mii_rx_dv        = mii_rx_dv_phy;
+    // assign mii_rx_data      = mii_rx_data_phy;
 
     // assign bidir_out[`PAD_MII_RST]      = mii_rst_n;
     // assign bidir_out[`PAD_MII_TX_EN]    = mii_tx_en;
@@ -184,14 +184,53 @@ module chip_core #(
         .wbs_rty_i(0)   
     );
 
+    // Buffer MII clocks
+    (* keep, dont_touch *) gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 mii_rx_clk_buf (
+        .I(mii_rx_clk_mac),
+        .Z(mii_rx_clk)
+    );
+    (* keep, dont_touch *) gf180mcu_fd_sc_mcu7t5v0__clkbuf_8 mii_tx_clk_buf (
+        .I(mii_tx_clk_mac),
+        .Z(mii_tx_clk)
+    );
+
+    // MII mux & Ethernet MAC
+    mii_mux mii_mux(
+        .mii_rx_clk_mac(mii_rx_clk_mac),
+        .mii_tx_clk_mac(mii_tx_clk),
+        .mii_rx_dat_mac(mii_rx_dat_mac),
+        .mii_rx_dv_mac(mii_rx_dv_mac),
+        .mii_tx_dat_mac(mii_tx_dat_mac),
+        .mii_tx_ena_mac(mii_tx_ena_mac),    
+        .phy_reset_mac(mii_rst_n_mac),   
+
+        .mii_rx_clk_phy(mii_rx_clk),
+        .mii_tx_clk_phy(mii_tx_clk_phy),
+        .mii_rx_dat_phy(mii_rx_dat_phy),
+        .mii_rx_dv_phy(mii_rx_dv_phy),
+        .mii_tx_dat_phy(mii_tx_dat_phy),
+        .mii_tx_ena_phy(mii_tx_ena_phy),  
+        .phy_reset_phy(phy_rst_n),  
+
+        .mii_rx_clk_pad(),
+        .mii_tx_clk_pad(),
+        .mii_rx_dat_pad(),
+        .mii_rx_dv_pad(),
+        .mii_tx_dat_pad(),
+        .mii_tx_ena_pad(),
+        .phy_reset_pad(),
+        
+        .select
+    );
+
     liteeth_core eth_mac (
-        .mii_clocks_rx(mii_rx_clk),
-        .mii_clocks_tx(mii_tx_clk),
-        .mii_rst_n(mii_rst_n),
-        .mii_rx_data(mii_rx_data),
-        .mii_rx_dv(mii_rx_dv),
-        .mii_tx_data(mii_tx_data),
-        .mii_tx_en(mii_tx_en),
+        .mii_clocks_rx(mii_rx_clk_mac),
+        .mii_clocks_tx(mii_tx_clk_mac),
+        .mii_rst_n(mii_rst_n_mac),
+        .mii_rx_data(mii_rx_data_mac),
+        .mii_rx_dv(mii_rx_dv_mac),
+        .mii_tx_data(mii_tx_data_mac),
+        .mii_tx_en(mii_tx_en_mac),
         .sys_clock(user_wb_clk),
         .sys_reset(rst_n),
         .wishbone_ack(user_wb_reg_ack),
@@ -204,6 +243,27 @@ module chip_core #(
         .wishbone_sel(user_wb_reg_sel),
         .wishbone_stb(user_wb_reg_stb),
         .wishbone_we(user_wb_reg_we)
+    );
+
+    // 10Base-T PHY ip
+    // assign phy_rst = ~mii_rst_n;
+    assign phy_clk_80 = bidir_in[`PAD_10BT_CLK];
+
+    tenbaset_phy_top tenbaset_phy (
+        .phy_rst_i(~phy_rst_n),
+        .phy_clk_i(phy_clk_80),         // 80 MHz
+        .mii_rx_clk_o(mii_rx_clk_phy),
+        .mii_tx_clk_o(mii_tx_clk_phy),
+        .mii_rx_dat_o(mii_rx_data_phy),
+        .mii_rx_dv_o(mii_rx_dv_phy),
+        .mii_tx_dat_i(mii_tx_data_phy),
+        .mii_tx_ena_i(mii_tx_en_phy),
+
+        .phy_cmos_rxp_i(bidir_in[`PAD_10BT_CMOS_RXP]),
+        .phy_cmos_rxn_i(bidir_in[`PAD_10BT_CMOS_RXN]),
+
+        .phy_txp_o(analog[`PADA_10BT_TXP]),
+        .phy_txn_o(analog[`PADA_10BT_TXN])
     );
 
     // Buffer wb clock
@@ -287,39 +347,6 @@ module chip_core #(
         .start_mode(caravel_start_mode)
     );
     assign caravel_start_mode = 1'b0;
-
-    // 10Base-T PHY ip
-    assign phy_rst = ~mii_rst_n;
-    assign phy_clk_80 = bidir_in[`PAD_10BT_CLK];
-
-    tenbaset_phy_top tenbaset_phy (
-        .phy_rst_i(phy_rst),
-        .phy_clk_i(phy_clk_80),         // 80 MHz
-        .mii_rx_clk_o(mii_rx_clk_phy),
-        .mii_tx_clk_o(mii_tx_clk_phy),
-        .mii_rx_dat_o(mii_rx_data_phy),
-        .mii_rx_dv_o(mii_rx_dv_phy),
-        .mii_tx_dat_i(mii_tx_data_phy),
-        .mii_tx_ena_i(mii_tx_en_phy),
-
-        .phy_cmos_rxp_i(bidir_in[`PAD_10BT_CMOS_RXP]),
-        .phy_cmos_rxn_i(bidir_in[`PAD_10BT_CMOS_RXN]),
-
-        .phy_txp_o(analog[`PADA_10BT_TXP]),
-        .phy_txn_o(analog[`PADA_10BT_TXN])
-    );
-    
-    // (* keep *) tenbaset_tx_driver tenbaset_tx_driver (
-    //     .D0P(0),
-    //     .D0N(0),
-    //     .D1P(0),
-    //     .D1N(0),
-    //     .D2P(0),
-    //     .D2N(0),
-
-    //     .TXP_PADOUT(analog[6]),
-    //     .TXN_PADOUT(analog[7])
-    // );
 
     // flash ip
     (* keep *) flash_ip flash_ip ();

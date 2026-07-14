@@ -18,7 +18,7 @@ module clk_timer (
 
 	reg measuring;
 	reg [3:0] lowcount;
-	reg [27:0] highcount;
+	reg [11:0] highcount;
 	wire [4:0] next_lowcount = lowcount + 1'b1; // Carry-out logic
     reg stop_prev; // To store the previous state of the stop signal
 	 
@@ -42,7 +42,7 @@ module clk_timer (
             // Only trigger when stop goes from 0 to 1 (Rising Edge)
             else if (stop == 1 && stop_prev == 0 && measuring == 1) begin
 				measuring <= 1'b0;
-				elapsed_count <= {highcount, lowcount};
+				elapsed_count <= {16'd0, highcount, lowcount};
 			end
         end
     end
@@ -52,7 +52,7 @@ module clk_timer (
 	always @(posedge clk_i) begin
 	    if (!rst_n || clear == 1) begin
 	        lowcount <= 4'd0;
-	        highcount <= 28'd0;
+	        highcount <= 12'd0;
 	    end else if (measuring == 1) begin
 			lowcount <= next_lowcount[3:0]; // Take the bottom 4 bits
 
