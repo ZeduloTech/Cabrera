@@ -69,10 +69,13 @@ if {$hierarchical_sta} {
         [expr $caravel_in_min_delay + $delta] [expr $caravel_period - $caravel_in_max_delay + $delta]
 }
 
-###################### GENERAL CONSTRAINTS ############################# 
+###################### 10BaseT CONSTRAINTS ############################# 
 
-create_clock [get_port bidir_PAD\[23\]] -name mii_rx_clk -period 400
-create_clock [get_port bidir_PAD\[29\]] -name mii_tx_clk -period 400
+create_clock i_chip_core.tenbaset_phy.phy_clk_buf/Z -name tenbaset_phy_clk -period 12.5
+# create_clock [get_port bidir_PAD\[23\]] -name mii_rx_clk -period 400
+# create_clock [get_port bidir_PAD\[29\]] -name mii_tx_clk -period 400
+
+###################### GENERAL CONSTRAINTS ############################# 
 
 set_false_path -through [get_pins $cvl/user_wb_rst_o]
 #set_case_analysis 0 [get_pins $cvl/user_wb_rst_o]
@@ -101,6 +104,7 @@ set_timing_derate -early [expr 1-[expr $::env(TIME_DERATING_CONSTRAINT) / 100]]
 set_timing_derate -late [expr 1+[expr $::env(TIME_DERATING_CONSTRAINT) / 100]]
 
 if { [info exists ::env(OPENLANE_SDC_IDEAL_CLOCKS)] && $::env(OPENLANE_SDC_IDEAL_CLOCKS) } {
+    puts "\[INFO] Setting clocks to UNPROPAGATED"
     unset_propagated_clock [all_clocks]
 } else {
     set_propagated_clock [all_clocks]
