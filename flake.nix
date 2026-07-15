@@ -64,6 +64,40 @@
             sha256 = "13dw8s6xgf92w79hx2i0c6yawyjx9flwgwgiswfcrvyraw3f5rd9";
           };
         };
+          
+        cocotbext-eth = pkgs.python3Packages.buildPythonPackage rec {
+          pname = "cocotbext-eth";
+          version = "0.1.24";
+          format = "pyproject";
+          build-system = with pkgs.python3Packages; [
+            setuptools
+          ];
+          dontCheckRuntimeDeps = true;
+        
+          src = pkgs.fetchFromGitHub {
+            owner = "alexforencich";
+            repo = "cocotbext-eth";
+            rev = "ee27082d97cf1ed8ccd5788f9e63a6298897e6b5";
+            sha256 = "sha256-cm5d6e4dRN3js/UjZzI4cIxhP+EsJN8JtUsYOIQ69ok=";
+          };
+        };
+          
+        cocotbext-axi = pkgs.python3Packages.buildPythonPackage rec {
+          pname = "cocotbext-axi";
+          version = "0.1.28";
+          format = "pyproject";
+          build-system = with pkgs.python3Packages; [
+            setuptools
+          ];
+          dontCheckRuntimeDeps = true;
+        
+          src = pkgs.fetchFromGitHub {
+            owner = "alexforencich";
+            repo = "cocotbext-axi";
+            rev = "b2d126c4bc0f4cafa6e2fd3cdcfafc333e716a9a";
+            sha256 = "sha256-Ql+Mk9U1oC8u3u7GcszDaiNcB6Jr1OO4BXXy1ynnBgM=";
+          };
+        };
         
         in
         {
@@ -87,7 +121,10 @@
               ps: with ps; [
                 # Verification
                 cocotb
+                cocotb-bus
                 cocotbext-uart
+                cocotbext-eth
+                cocotbext-axi
                 pytest
                 pytest-xdist
 

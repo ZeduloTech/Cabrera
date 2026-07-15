@@ -83,6 +83,16 @@ create_clock [get_pin i_chip_core.tenbaset_phy.phy_clk_buf/Z] -name tenbaset_phy
 create_clock [get_pin i_chip_core.mii_rx_clk_buf/Z] -name mii_rx_clk -period 40
 create_clock [get_pin i_chip_core.mii_tx_clk_buf/Z] -name mii_tx_clk -period 40
 
+set_clock_groups \
+   -name clock_group_async \
+   -asynchronous \
+   -group $wb_clock_name \
+   -group ztimer_clk \
+   -group [get_clocks rosc*_clk] \
+   -group tenbaset_phy_clk \
+   -group mii_rx_clk \
+   -group mii_tx_clk 
+
 ###################### GENERAL CONSTRAINTS ############################# 
 
 set_false_path -through [get_pins $cvl/user_wb_rst_o]

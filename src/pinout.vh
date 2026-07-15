@@ -48,7 +48,11 @@
 `define PAD_10BT_CLK        35
 `define PAD_10BT_CMOS_RXP   36
 `define PAD_10BT_CMOS_RXN   37
+`define PAD_10BT_SHM_SEL0   38
+`define PAD_10BT_SHM_SEL1   39
 `define PADA_10BT_TXP       6
 `define PADA_10BT_TXN       7
+
+`define PAD_LAST            `PAD_10BT_SHM_SEL1
 
 `endif

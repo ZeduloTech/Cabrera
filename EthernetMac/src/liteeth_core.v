@@ -3371,7 +3371,31 @@ assign core_cdc_consume_wdomain = multiregimpl51;
 // Synchronous Logic
 //------------------------------------------------------------------------------
 
-always @(posedge eth_rx_clk) begin
+always @(posedge eth_rx_clk or posedge eth_rx_rst) begin
+    if (eth_rx_rst) begin
+        maccore_liteethphymiirx_converter_sink_valid <= 1'd0;
+        maccore_liteethphymiirx_converter_sink_payload_data <= 4'd0;
+        maccore_liteethphymiirx_converter_source_payload_data <= 8'd0;
+        maccore_liteethphymiirx_converter_source_payload_valid_token_count <= 2'd0;
+        maccore_liteethphymiirx_converter_demux <= 1'd0;
+        maccore_liteethphymiirx_converter_strobe_all <= 1'd0;
+        maccore_liteethphymiirx_reset <= 1'd0;
+        core_liteethmaccrc32checker_crc_reg <= 32'd4294967295;
+        core_liteethmaccrc32checker_syncfifo_level <= 3'd0;
+        core_liteethmaccrc32checker_syncfifo_produce <= 3'd0;
+        core_liteethmaccrc32checker_syncfifo_consume <= 3'd0;
+        core_liteethmaccrc32checker_last_be <= 1'd0;
+        core_liteethmaccrc32checker_crc_error1 <= 1'd0;
+        core_bufferizeendpoints_pipe_valid_source_valid <= 1'd0;
+        core_bufferizeendpoints_pipe_valid_source_payload_data <= 8'd0;
+        core_bufferizeendpoints_pipe_valid_source_payload_last_be <= 1'd0;
+        core_bufferizeendpoints_pipe_valid_source_payload_error <= 1'd0;
+        core_rx_padding_length <= 9'd0;
+        core_cdc_graycounter0_q <= 6'd0;
+        core_cdc_graycounter0_q_binary <= 6'd0;
+        rxdatapath_liteethmacpreamblechecker_state <= 1'd0;
+        rxdatapath_bufferizeendpoints_state <= 2'd0;
+    end else begin
     maccore_liteethphymiirx_reset <= (~mii_rx_dv);
     maccore_liteethphymiirx_converter_sink_valid <= 1'd1;
     maccore_liteethphymiirx_converter_sink_payload_data <= mii_rx_data;
@@ -3488,35 +3512,29 @@ always @(posedge eth_rx_clk) begin
     end
     core_cdc_graycounter0_q_binary <= core_cdc_graycounter0_q_next_binary;
     core_cdc_graycounter0_q <= core_cdc_graycounter0_q_next;
-    if (eth_rx_rst) begin
-        maccore_liteethphymiirx_converter_sink_valid <= 1'd0;
-        maccore_liteethphymiirx_converter_sink_payload_data <= 4'd0;
-        maccore_liteethphymiirx_converter_source_payload_data <= 8'd0;
-        maccore_liteethphymiirx_converter_source_payload_valid_token_count <= 2'd0;
-        maccore_liteethphymiirx_converter_demux <= 1'd0;
-        maccore_liteethphymiirx_converter_strobe_all <= 1'd0;
-        maccore_liteethphymiirx_reset <= 1'd0;
-        core_liteethmaccrc32checker_crc_reg <= 32'd4294967295;
-        core_liteethmaccrc32checker_syncfifo_level <= 3'd0;
-        core_liteethmaccrc32checker_syncfifo_produce <= 3'd0;
-        core_liteethmaccrc32checker_syncfifo_consume <= 3'd0;
-        core_liteethmaccrc32checker_last_be <= 1'd0;
-        core_liteethmaccrc32checker_crc_error1 <= 1'd0;
-        core_bufferizeendpoints_pipe_valid_source_valid <= 1'd0;
-        core_bufferizeendpoints_pipe_valid_source_payload_data <= 8'd0;
-        core_bufferizeendpoints_pipe_valid_source_payload_last_be <= 1'd0;
-        core_bufferizeendpoints_pipe_valid_source_payload_error <= 1'd0;
-        core_rx_padding_length <= 9'd0;
-        core_cdc_graycounter0_q <= 6'd0;
-        core_cdc_graycounter0_q_binary <= 6'd0;
-        rxdatapath_liteethmacpreamblechecker_state <= 1'd0;
-        rxdatapath_bufferizeendpoints_state <= 2'd0;
-    end
+    
     multiregimpl50 <= core_cdc_graycounter1_q;
     multiregimpl51 <= multiregimpl50;
+    end
 end
 
-always @(posedge eth_tx_clk) begin
+always @(posedge eth_tx_clk or posedge eth_tx_rst) begin
+    if (eth_tx_rst) begin
+        maccore_liteethphymiitx_converter_mux <= 1'd0;
+        core_txdatapath_cdc_graycounter1_q <= 6'd0;
+        core_txdatapath_cdc_graycounter1_q_binary <= 6'd0;
+        core_tx_padding_counter <= 16'd0;
+        core_tx_crc_reg <= 32'd4294967295;
+        core_tx_crc_cnt <= 2'd3;
+        core_tx_crc_pipe_valid_source_valid <= 1'd0;
+        core_tx_crc_pipe_valid_source_payload_data <= 8'd0;
+        core_tx_crc_pipe_valid_source_payload_last_be <= 1'd0;
+        core_tx_crc_pipe_valid_source_payload_error <= 1'd0;
+        txdatapath_liteethmacpaddinginserter_state <= 1'd0;
+        txdatapath_bufferizeendpoints_state <= 2'd0;
+        txdatapath_liteethmacpreambleinserter_state <= 2'd0;
+        txdatapath_liteethmacgap_state <= 1'd0;
+    end else begin
     mii_tx_en <= maccore_liteethphymiitx_source_source_valid;
     mii_tx_data <= maccore_liteethphymiitx_source_source_payload_data;
     if ((maccore_liteethphymiitx_converter_source_valid & maccore_liteethphymiitx_converter_source_ready)) begin
@@ -3568,24 +3586,10 @@ always @(posedge eth_tx_clk) begin
     if (core_tx_gap_counter_clockdomainsrenamer3_next_value_ce) begin
         core_tx_gap_counter <= core_tx_gap_counter_clockdomainsrenamer3_next_value;
     end
-    if (eth_tx_rst) begin
-        maccore_liteethphymiitx_converter_mux <= 1'd0;
-        core_txdatapath_cdc_graycounter1_q <= 6'd0;
-        core_txdatapath_cdc_graycounter1_q_binary <= 6'd0;
-        core_tx_padding_counter <= 16'd0;
-        core_tx_crc_reg <= 32'd4294967295;
-        core_tx_crc_cnt <= 2'd3;
-        core_tx_crc_pipe_valid_source_valid <= 1'd0;
-        core_tx_crc_pipe_valid_source_payload_data <= 8'd0;
-        core_tx_crc_pipe_valid_source_payload_last_be <= 1'd0;
-        core_tx_crc_pipe_valid_source_payload_error <= 1'd0;
-        txdatapath_liteethmacpaddinginserter_state <= 1'd0;
-        txdatapath_bufferizeendpoints_state <= 2'd0;
-        txdatapath_liteethmacpreambleinserter_state <= 2'd0;
-        txdatapath_liteethmacgap_state <= 1'd0;
-    end
+    
     multiregimpl00 <= core_txdatapath_cdc_graycounter0_q;
     multiregimpl01 <= multiregimpl00;
+    end
 end
 
 // EDIT: Switching synchronous reset to asynchronous
@@ -4093,7 +4097,7 @@ wire [7:0] writer_slot0_q;
     .VSS(1'b0),
 `endif
     .CLK(sys_clock),
-    .CEN(1'b0),
+    .CEN(~sys_reset),
     .GWEN(~wishbone_interface_writer_memory_we),
     .WEN(8'b00000000),
     .A(writer_slot0_adr_mux),

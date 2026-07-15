@@ -15,6 +15,8 @@ from cocotb.triggers import Timer, RisingEdge
 from cocotbext.uart import UartSink
 from cocotb_tools.runner import get_runner
 
+from cocotbext.eth import MiiSource, MiiSink, GmiiFrame
+
 sim = os.getenv("SIM", "icarus")
 pdk_root = os.getenv("PDK_ROOT", Path("../gf180mcu").absolute())
 pdk = os.getenv("PDK", "gf180mcuD")
@@ -25,6 +27,61 @@ sdf = os.getenv("SDF", False)
 test_env = os.getenv("TEST", "all")
 add_build_args = os.getenv("ADD_BUILD_ARGS", "").split()
 add_plus_args = os.getenv("ADD_PLUS_ARGS", "").split()
+
+class MiiReceiver:
+    def __init__(self, logger, mii_sink, payload):
+        self.logger = logger
+        self.mii_sink = mii_sink
+        self.payload = payload
+        self.received = 0
+
+    async def start(self):
+        while True:
+            frame = await self.mii_sink.recv()
+            assert frame.check_fcs(), "Frame FCS is incorrect!"
+            data = frame.get_payload(strip_fcs=True)
+            assert len(self.payload) == len(data)
+            for i,b in enumerate(data):
+                assert b == self.payload[i]
+            self.logger.info("Correct frame received")
+            self.received = self.received + 1
+
+@cocotb.test(timeout_time=200, timeout_unit="ms")
+async def mii_phy_test(dut):
+    """Run the MII PHY test"""
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    logger.info("Starting MII PHY test")
+
+    payload = b"0123456701234567012345670123456701234567012345670123456701234567abcd"
+
+    # set MII mux to PADS-PHY
+    dut.in_pads.value = 4 # 0100
+
+    # start clocks & reset
+    cocotb.start_soon(Clock(dut.clock, 100, "ns").start())
+    cocotb.start_soon(Clock(dut.phy_clk, 12.5, "ns").start())
+    mii_src = MiiSource(dut.mii_tx_dat, None, dut.mii_tx_en, dut.mii_tx_clk, None)
+    mii_sink = MiiSink(dut.mii_rx_dat, None, dut.mii_rx_dv, dut.mii_rx_clk, None)
+    mii_rcv = MiiReceiver(logger, mii_sink, payload)
+    cocotb.start_soon(mii_rcv.start())
+    dut.resetb.value = 0
+    dut.mii_rst.value = 0
+    await Timer(1, "us")
+    dut.resetb.value = 1
+    dut.mii_rst.value = 1
+    await Timer(1, "us")
+
+    # mii_phy = MiiPhy(dut.mii_tx_dat, None, dut.mii_tx_en, dut.mii_tx_clk, dut.mii_rx_dat, None, dut.mii_rx_dv, dut.mii_rx_clk, dut.mii_rst, speed=10e6)
+
+    mii_src.send_nowait(GmiiFrame.from_payload(payload))
+    # mii_phy.rx.send_nowait(GmiiFrame.from_payload(payload))
+
+    await Timer(100, "us")
+    assert mii_rcv.received == 1
+
+    logger.info("Done!")
+
 
 uart_recv = ""
 async def uart_monitor(uart_sink):
@@ -46,11 +103,6 @@ async def caravel_test(dut):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     logger.info(f"Starting Caravel test {os.getenv('TEST_NAME')}")
-    
-    # Copy efuse hex
-    efuse = os.getenv("EFUSE_HEX")
-    if efuse:
-        shutil.copy(efuse, "efuse_init.hex")
 
     # Connect UART
     uart_sink = UartSink(dut.uart_tx, baud=19200, bits=8)
@@ -116,20 +168,23 @@ def test_chip_top_runner(test : str):
     else:
         sources.append(proj_path / "../src/chip_top.sv")
         sources.append(proj_path / "../src/chip_core.sv")
-        sources.append(proj_path / "../src/wb_counter.v")
         sources.append(proj_path / "../src/wb_reg.v")
+        sources.append(proj_path / "../src/mii_mux.v")
         sources.append(proj_path / "../EthernetMac/src/liteeth_core.v")
+        sources.append(proj_path / "../ip/tenbaset/tenbaset_phy_top.v")
+        sources.append(proj_path / "../ip/tenbaset/tenbaset_tx.v")
+        sources.append(proj_path / "../ip/tenbaset/tenbaset_rx.v")
 
         sources += (proj_path / "../caravel/verilog/").glob("*.v")
 
-	# Timer IP
+	    # Timer IP
         sources += (proj_path / "../ztimer/src/").glob("*.sv")
         sources.append(proj_path / "../rosc3/src/not_rosc3.sv")
         sources.append(proj_path / "../rosc5/src/not_rosc5.sv")
         sources.append(proj_path / "../rosc9/src/not_rosc9.sv")
         sources.append(proj_path / "../rosc27/src/not_rosc27.sv")
  
-        defines.update({"SLOT_1X1" : 1, "FUNCTIONAL": 1})
+        defines.update({"SLOT_1X0P5" : 1, "FUNCTIONAL": 1})
 
     includes.append(proj_path / "../src")
     includes.append(proj_path / "../caravel/verilog/")
@@ -149,6 +204,9 @@ def test_chip_top_runner(test : str):
 
         # Caravel IP
         proj_path / "../ip/simple_por/verilog/simple_por.v",
+
+        # Sim wrappers
+        proj_path / "../src/sim/sim_wrapper.v",
         
         # Custom IP
         #proj_path / "../ip/gf180mcu_ws_ip__id/vh/gf180mcu_ws_ip__id.v",
@@ -159,6 +217,7 @@ def test_chip_top_runner(test : str):
         proj_path / "../ip/gf180mcu_ws_ip__logo/vh/gf180mcu_ws_ip__logo.v",
         proj_path / "../ip/gf180mcu_ws_ip__marker/vh/gf180mcu_ws_ip__marker.v",
         proj_path / "../ip/flash_ip/vh/Flash_SPI.v",
+        proj_path / "../ip/tenbaset/tenbaset_tx_driver.v"
     ]
 
     build_args = []

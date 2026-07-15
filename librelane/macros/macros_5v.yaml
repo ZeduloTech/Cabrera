@@ -164,7 +164,7 @@ MACROS:
     lef:
       - dir::../ip/tenbaset/tenbaset_tx_driver.lef
     vh:
-      - dir::../ip/tenbaset/tenbaset_tx_driver.vh
+      - dir::../ip/tenbaset/tenbaset_tx_driver.v
     instances:
       i_chip_core.tenbaset_phy.tenbaset_tx_driver:
         location: [3291.7, 1947.5]
@@ -196,7 +196,6 @@ MACROS:
 
 # This is an alternative method compared to
 # specifying the power connections in the RTL
-PDN_MACRO_CONNECTIONS:
 PDN_MACRO_CONNECTIONS:
 - "i_chip_core.tenbaset_phy.tenbaset_tx_driver VDD VSS VDD VSS"
 #- "i_chip_core.u_ztimer.rosc3 VDD VSS VDD VSS"
